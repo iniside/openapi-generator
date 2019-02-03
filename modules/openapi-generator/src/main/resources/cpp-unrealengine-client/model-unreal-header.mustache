@@ -1,0 +1,91 @@
+{{>licenseInfo}}
+{{#models}}{{#model}}/*
+ * {{classname}}.h
+ *
+ * {{description}}
+ */
+
+
+{{^parent}}
+{{{defaultInclude}}}
+#include "ModelBase.h"
+{{/parent}}
+
+{{#imports}}{{{this}}}
+{{/imports}}
+
+{{#modelNamespaceDeclarations}}
+namespace {{this}} {
+{{/modelNamespaceDeclarations}}
+
+/*
+ * {{description}}
+ */
+struct {{declspec}} F{{classname}}
+    : public FJsonSerializable
+{
+public:
+    BEGIN_JSON_SERIALIZER
+    {{#vars}}
+    {{#isContainer}}
+        {{#isListContainer}}
+            {{#isPrimitiveType}}
+        JSON_SERIALIZE_ARRAY("{{name}}", {{name}});
+            {{/isPrimitiveType}}
+            {{^isPrimitiveType}}
+            {{#items}}
+                {{#isString}}
+        JSON_SERIALIZE_ARRAY("{{name}}", {{name}});
+                {{/isString}}
+                {{^isString}}
+       JSON_SERIALIZE_ARRAY_SERIALIZABLE("{{name}}", {{name}}, {{{complexType}}}); 
+                {{/isString}}
+            {{/items}}
+            {{/isPrimitiveType}}
+        {{/isListContainer}}
+        {{#isMapContainer}}
+            {{#isPrimitiveType}}
+        JSON_SERIALIZE_MAP("{{name}}", {{name}});
+            {{/isPrimitiveType}}
+            {{^isPrimitiveType}}
+            {{#items}}
+                {{#isString}}
+        JSON_SERIALIZE_MAP("{{name}}", {{name}});
+                {{/isString}}
+                {{^isString}}
+        JSON_SERIALIZE_MAP_SERIALIZABLE("{{name}}", {{name}}, {{{complexType}}});
+                {{/isString}}
+                {{/items}}
+            {{/isPrimitiveType}}
+        {{/isMapContainer}}
+        
+    {{/isContainer}}
+    {{^isContainer}}
+        {{^isPrimitiveType}}
+            {{#isString}}
+            JSON_SERIALIZE("{{name}}", {{name}});
+            {{/isString}}
+            {{^isString}}
+            JSON_SERIALIZE_SERIALIZABLE("{{name}}", {{name}});
+            {{/isString}}
+        {{/isPrimitiveType}}
+        {{#isPrimitiveType}}
+        JSON_SERIALIZE("{{name}}", {{name}});
+        {{/isPrimitiveType}}
+    {{/isContainer}}
+    {{/vars}}
+    END_JSON_SERIALIZER
+private:
+     
+    {{#vars}}    
+    {{{dataType}}} {{name}};
+    {{/vars}}
+    
+};
+
+{{#modelNamespaceDeclarations}}
+}
+{{/modelNamespaceDeclarations}}
+
+{{/model}}
+{{/models}}

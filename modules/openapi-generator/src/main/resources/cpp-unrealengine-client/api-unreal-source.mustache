@@ -1,0 +1,117 @@
+{{>licenseInfo}}
+{{#operations}}
+
+#include "{{classname}}.h"
+
+{{#apiNamespaceDeclarations}}
+namespace {{this}} {
+{{/apiNamespaceDeclarations}}
+
+using namespace {{modelNamespace}};
+
+{{#operation}}
+bool F{{classname}}::{{operationId}}(        
+        {{#allParams}}
+        {{dataType}} {{paramName}}{{#hasMore}},{{/hasMore}}
+        {{/allParams}}
+        , const FOn{{operationId}}& SuccessDelegate = FOn{{operationId}}()
+{
+    {{httpMethod}}
+    auto HttpRequest = PlayFabRequestHandler::SendRequest({{path}}, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
+    HttpRequest->OnProcessRequestComplete().BindRaw(this, &F{{classname}}::On{{operationId}}, SuccessDelegate, ErrorDelegate);
+    return HttpRequest->ProcessRequest();
+}
+{{/operation}}
+
+{{#operation}}
+void F{{classname}}::On{{operationId}}Result(FHttpRequestPtr HttpRequest
+        , FHttpResponsePtr HttpResponse
+        , bool bSucceeded, FOn{{operationId}} SuccessDelegate
+        , FPlayFabErrorDelegate ErrorDelegate)
+{
+    FPlayFabCppError errorResult;
+    ResponseStr = HttpResponse->GetContentAsString();
+
+    {{#returnType}}
+    {{#isListContainer}}
+    {{{returnType}}} OutResult;
+    TArray<TSharedPtr<FJsonValue>> JsonValues;
+    TSharedRef<TJsonReader<> > JsonReader = TJsonReaderFactory<>::Create(ResponseStr);
+
+    if (FJsonSerializer::Deserialize(JsonReader, JsonValues))
+    {
+        for(int32 Idx = 0; Idx < JsonValues.Num(); Idx++)
+        {
+            switch(JsonValues[Idx]->Type)
+            {
+                	case None:
+                    {
+                        break;
+                    }
+	                case Null:
+                    {
+                        break;
+                    }
+	                case String:
+                    {
+                        break;
+                    }
+	                case Number:
+                    {
+                        break;
+                    }
+	                case Boolean:
+                    {
+                        break;
+                    }
+	                case Array:
+                    {
+                        break;
+                    }
+	                case Object:
+                    {
+                        TSharedPtr<FJsonObject>* OutObject;
+                        JsonValue->AsObject()->TryGetObject(OutObject);
+                        {{{returnBaseType}}} NewElem;
+                        NewElem.FromJson(*OutObject);
+                        OutResult.Add(NewElem);
+                        break;
+                    }
+            }
+        }
+        if (PlayFabRequestHandler::DecodeError(JsonObject, OutError))
+        {
+            return false;
+        }
+    }
+    {{/isListContainer}}
+    {{^isListContainer}}
+    {{{returnType}}} OutResult;
+    TSharedPtr<FJsonObject> JsonObject;
+    TSharedRef<TJsonReader<> > JsonReader = TJsonReaderFactory<>::Create(ResponseStr);
+
+    if (FJsonSerializer::Deserialize(JsonReader, JsonObject) && JsonObject.IsValid())
+    {
+        OutResult.FromJson(JsonObject);
+        if (PlayFabRequestHandler::DecodeError(JsonObject, OutError))
+        {
+            return false;
+        }
+    }
+
+    {
+        SuccessDelegate.ExecuteIfBound(OutResult);
+    }
+    {{/isListContainer}}
+    {{/returnType}} 
+    
+    
+    
+}
+{{/operation}}
+
+{{#apiNamespaceDeclarations}}
+}
+{{/apiNamespaceDeclarations}}
+
+{{/operations}}

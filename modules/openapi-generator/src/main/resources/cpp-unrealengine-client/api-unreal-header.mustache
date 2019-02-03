@@ -1,0 +1,52 @@
+{{>licenseInfo}}
+{{#operations}}/*
+ * {{classname}}.h
+ *
+ * {{description}}
+ */
+
+{{{defaultInclude}}}
+#include "../ApiClient.h"
+
+{{#imports}}{{{import}}}
+{{/imports}}
+{{^hasModelImport}}#include "../ModelBase.h"{{/hasModelImport}}
+
+
+{{#apiNamespaceDeclarations}}
+namespace {{this}} {
+{{/apiNamespaceDeclarations}}
+
+class {{declspec}} F{{classname}} : public I{{classname}} 
+{
+public:
+    {{#operation}}
+    DECLARE_DELEGATE_OneParam(FOn{{operationId}}, const {{#returnType}}{{{returnType}}}{{/returnType}}& )
+    {{/operation}}
+    {{#operation}}
+   
+    bool {{operationId}}(
+        {{#allParams}}
+        {{dataType}} {{paramName}}{{#hasMore}},{{/hasMore}}
+        {{/allParams}}
+        , const FOn{{operationId}}& SuccessDelegate = FOn{{operationId}}()
+    )
+    {{/operation}}
+
+{{#operation}}
+void On{{operationId}}Result(FHttpRequestPtr HttpRequest
+        , FHttpResponsePtr HttpResponse
+        , bool bSucceeded
+        , FOn{{operationId}} SuccessDelegate
+        , FPlayFabErrorDelegate ErrorDelegate);
+{{/operation}}
+
+protected:
+    std::shared_ptr<ApiClient> m_ApiClient;
+};
+
+{{#apiNamespaceDeclarations}}
+}
+{{/apiNamespaceDeclarations}}
+
+{{/operations}}
