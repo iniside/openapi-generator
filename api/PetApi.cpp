@@ -100,25 +100,11 @@ void FPetApi::OnAddPetResult(FHttpRequestPtr HttpRequest
         , bool bSucceeded, FOnAddPet SuccessDelegate
         , FPlayFabErrorDelegate ErrorDelegate)
 {
-     OutResult;
     FPlayFabCppError errorResult;
-
     ResponseStr = HttpResponse->GetContentAsString();
-    TSharedPtr<FJsonObject> JsonObject;
-    TSharedRef<TJsonReader<> > JsonReader = TJsonReaderFactory<>::Create(ResponseStr);
 
-    if (FJsonSerializer::Deserialize(JsonReader, JsonObject) && JsonObject.IsValid())
-    {
-        OutResult.FromJson(JsonObject);
-        if (PlayFabRequestHandler::DecodeError(JsonObject, OutError))
-        {
-            return false;
-        }
-    }
-
-    {
-        SuccessDelegate.ExecuteIfBound(OutResult);
-    }
+    
+    
     
 }
 void FPetApi::OnDeletePetResult(FHttpRequestPtr HttpRequest
@@ -126,25 +112,11 @@ void FPetApi::OnDeletePetResult(FHttpRequestPtr HttpRequest
         , bool bSucceeded, FOnDeletePet SuccessDelegate
         , FPlayFabErrorDelegate ErrorDelegate)
 {
-     OutResult;
     FPlayFabCppError errorResult;
-
     ResponseStr = HttpResponse->GetContentAsString();
-    TSharedPtr<FJsonObject> JsonObject;
-    TSharedRef<TJsonReader<> > JsonReader = TJsonReaderFactory<>::Create(ResponseStr);
 
-    if (FJsonSerializer::Deserialize(JsonReader, JsonObject) && JsonObject.IsValid())
-    {
-        OutResult.FromJson(JsonObject);
-        if (PlayFabRequestHandler::DecodeError(JsonObject, OutError))
-        {
-            return false;
-        }
-    }
-
-    {
-        SuccessDelegate.ExecuteIfBound(OutResult);
-    }
+    
+    
     
 }
 void FPetApi::OnFindPetsByStatusResult(FHttpRequestPtr HttpRequest
@@ -152,25 +124,61 @@ void FPetApi::OnFindPetsByStatusResult(FHttpRequestPtr HttpRequest
         , bool bSucceeded, FOnFindPetsByStatus SuccessDelegate
         , FPlayFabErrorDelegate ErrorDelegate)
 {
-    TArray<Pet> OutResult;
     FPlayFabCppError errorResult;
-
     ResponseStr = HttpResponse->GetContentAsString();
-    TSharedPtr<FJsonObject> JsonObject;
+
+    TArray<Pet> OutResult;
+    TArray<TSharedPtr<FJsonValue>> JsonValues;
     TSharedRef<TJsonReader<> > JsonReader = TJsonReaderFactory<>::Create(ResponseStr);
 
-    if (FJsonSerializer::Deserialize(JsonReader, JsonObject) && JsonObject.IsValid())
+    if (FJsonSerializer::Deserialize(JsonReader, JsonValues))
     {
-        OutResult.FromJson(JsonObject);
+        for(int32 Idx = 0; Idx < JsonValues.Num(); Idx++)
+        {
+            switch(JsonValues[Idx]->Type)
+            {
+                	case None:
+                    {
+                        break;
+                    }
+	                case Null:
+                    {
+                        break;
+                    }
+	                case String:
+                    {
+                        break;
+                    }
+	                case Number:
+                    {
+                        break;
+                    }
+	                case Boolean:
+                    {
+                        break;
+                    }
+	                case Array:
+                    {
+                        break;
+                    }
+	                case Object:
+                    {
+                        TSharedPtr<FJsonObject>* OutObject;
+                        JsonValue->AsObject()->TryGetObject(OutObject);
+                        Pet NewElem;
+                        NewElem.FromJson(*OutObject);
+                        OutResult.Add(NewElem);
+                        break;
+                    }
+            }
+        }
         if (PlayFabRequestHandler::DecodeError(JsonObject, OutError))
         {
             return false;
         }
     }
-
-    {
-        SuccessDelegate.ExecuteIfBound(OutResult);
-    }
+    
+    
     
 }
 void FPetApi::OnFindPetsByTagsResult(FHttpRequestPtr HttpRequest
@@ -178,25 +186,61 @@ void FPetApi::OnFindPetsByTagsResult(FHttpRequestPtr HttpRequest
         , bool bSucceeded, FOnFindPetsByTags SuccessDelegate
         , FPlayFabErrorDelegate ErrorDelegate)
 {
-    TArray<Pet> OutResult;
     FPlayFabCppError errorResult;
-
     ResponseStr = HttpResponse->GetContentAsString();
-    TSharedPtr<FJsonObject> JsonObject;
+
+    TArray<Pet> OutResult;
+    TArray<TSharedPtr<FJsonValue>> JsonValues;
     TSharedRef<TJsonReader<> > JsonReader = TJsonReaderFactory<>::Create(ResponseStr);
 
-    if (FJsonSerializer::Deserialize(JsonReader, JsonObject) && JsonObject.IsValid())
+    if (FJsonSerializer::Deserialize(JsonReader, JsonValues))
     {
-        OutResult.FromJson(JsonObject);
+        for(int32 Idx = 0; Idx < JsonValues.Num(); Idx++)
+        {
+            switch(JsonValues[Idx]->Type)
+            {
+                	case None:
+                    {
+                        break;
+                    }
+	                case Null:
+                    {
+                        break;
+                    }
+	                case String:
+                    {
+                        break;
+                    }
+	                case Number:
+                    {
+                        break;
+                    }
+	                case Boolean:
+                    {
+                        break;
+                    }
+	                case Array:
+                    {
+                        break;
+                    }
+	                case Object:
+                    {
+                        TSharedPtr<FJsonObject>* OutObject;
+                        JsonValue->AsObject()->TryGetObject(OutObject);
+                        Pet NewElem;
+                        NewElem.FromJson(*OutObject);
+                        OutResult.Add(NewElem);
+                        break;
+                    }
+            }
+        }
         if (PlayFabRequestHandler::DecodeError(JsonObject, OutError))
         {
             return false;
         }
     }
-
-    {
-        SuccessDelegate.ExecuteIfBound(OutResult);
-    }
+    
+    
     
 }
 void FPetApi::OnGetPetByIdResult(FHttpRequestPtr HttpRequest
@@ -204,10 +248,10 @@ void FPetApi::OnGetPetByIdResult(FHttpRequestPtr HttpRequest
         , bool bSucceeded, FOnGetPetById SuccessDelegate
         , FPlayFabErrorDelegate ErrorDelegate)
 {
-    Pet OutResult;
     FPlayFabCppError errorResult;
-
     ResponseStr = HttpResponse->GetContentAsString();
+
+    Pet OutResult;
     TSharedPtr<FJsonObject> JsonObject;
     TSharedRef<TJsonReader<> > JsonReader = TJsonReaderFactory<>::Create(ResponseStr);
 
@@ -223,6 +267,8 @@ void FPetApi::OnGetPetByIdResult(FHttpRequestPtr HttpRequest
     {
         SuccessDelegate.ExecuteIfBound(OutResult);
     }
+    
+    
     
 }
 void FPetApi::OnUpdatePetResult(FHttpRequestPtr HttpRequest
@@ -230,25 +276,11 @@ void FPetApi::OnUpdatePetResult(FHttpRequestPtr HttpRequest
         , bool bSucceeded, FOnUpdatePet SuccessDelegate
         , FPlayFabErrorDelegate ErrorDelegate)
 {
-     OutResult;
     FPlayFabCppError errorResult;
-
     ResponseStr = HttpResponse->GetContentAsString();
-    TSharedPtr<FJsonObject> JsonObject;
-    TSharedRef<TJsonReader<> > JsonReader = TJsonReaderFactory<>::Create(ResponseStr);
 
-    if (FJsonSerializer::Deserialize(JsonReader, JsonObject) && JsonObject.IsValid())
-    {
-        OutResult.FromJson(JsonObject);
-        if (PlayFabRequestHandler::DecodeError(JsonObject, OutError))
-        {
-            return false;
-        }
-    }
-
-    {
-        SuccessDelegate.ExecuteIfBound(OutResult);
-    }
+    
+    
     
 }
 void FPetApi::OnUpdatePetWithFormResult(FHttpRequestPtr HttpRequest
@@ -256,10 +288,22 @@ void FPetApi::OnUpdatePetWithFormResult(FHttpRequestPtr HttpRequest
         , bool bSucceeded, FOnUpdatePetWithForm SuccessDelegate
         , FPlayFabErrorDelegate ErrorDelegate)
 {
-     OutResult;
     FPlayFabCppError errorResult;
-
     ResponseStr = HttpResponse->GetContentAsString();
+
+    
+    
+    
+}
+void FPetApi::OnUploadFileResult(FHttpRequestPtr HttpRequest
+        , FHttpResponsePtr HttpResponse
+        , bool bSucceeded, FOnUploadFile SuccessDelegate
+        , FPlayFabErrorDelegate ErrorDelegate)
+{
+    FPlayFabCppError errorResult;
+    ResponseStr = HttpResponse->GetContentAsString();
+
+    ApiResponse OutResult;
     TSharedPtr<FJsonObject> JsonObject;
     TSharedRef<TJsonReader<> > JsonReader = TJsonReaderFactory<>::Create(ResponseStr);
 
@@ -276,31 +320,7 @@ void FPetApi::OnUpdatePetWithFormResult(FHttpRequestPtr HttpRequest
         SuccessDelegate.ExecuteIfBound(OutResult);
     }
     
-}
-void FPetApi::OnUploadFileResult(FHttpRequestPtr HttpRequest
-        , FHttpResponsePtr HttpResponse
-        , bool bSucceeded, FOnUploadFile SuccessDelegate
-        , FPlayFabErrorDelegate ErrorDelegate)
-{
-    ApiResponse OutResult;
-    FPlayFabCppError errorResult;
-
-    ResponseStr = HttpResponse->GetContentAsString();
-    TSharedPtr<FJsonObject> JsonObject;
-    TSharedRef<TJsonReader<> > JsonReader = TJsonReaderFactory<>::Create(ResponseStr);
-
-    if (FJsonSerializer::Deserialize(JsonReader, JsonObject) && JsonObject.IsValid())
-    {
-        OutResult.FromJson(JsonObject);
-        if (PlayFabRequestHandler::DecodeError(JsonObject, OutError))
-        {
-            return false;
-        }
-    }
-
-    {
-        SuccessDelegate.ExecuteIfBound(OutResult);
-    }
+    
     
 }
 

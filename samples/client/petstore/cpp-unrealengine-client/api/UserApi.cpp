@@ -20,8 +20,24 @@ bool FUserApi::CreateUser(
         User Body
         , const FOnCreateUser& SuccessDelegate = FOnCreateUser()
 {
-    POST
-    auto HttpRequest = PlayFabRequestHandler::SendRequest(/user, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
+    FString VerbType = "POST";
+    bool bHasFormParams = false;
+    bool bHasBodyParam = true;
+    bool bHasQueryParams = false;
+    bool bHasPathParams = false;
+
+    TPair<FString, FString> ContentType;
+    if(VerbType == "GET")
+    {
+    }
+    
+        ContentType.Key = "content-type";
+        ContentType.Value = "application/json";
+    if(bHasQueryParams)
+    {
+    }
+    FString ApiPath = /user;
+    auto HttpRequest = PlayFabRequestHandler::SendRequest(ApiPath, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FUserApi::OnCreateUser, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
 }
@@ -29,8 +45,24 @@ bool FUserApi::CreateUsersWithArrayInput(
         TArray&lt;User&gt; Body
         , const FOnCreateUsersWithArrayInput& SuccessDelegate = FOnCreateUsersWithArrayInput()
 {
-    POST
-    auto HttpRequest = PlayFabRequestHandler::SendRequest(/user/createWithArray, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
+    FString VerbType = "POST";
+    bool bHasFormParams = false;
+    bool bHasBodyParam = true;
+    bool bHasQueryParams = false;
+    bool bHasPathParams = false;
+
+    TPair<FString, FString> ContentType;
+    if(VerbType == "GET")
+    {
+    }
+    
+            ContentType.Key = "content-type";
+            ContentType.Value = "application/json";
+    if(bHasQueryParams)
+    {
+    }
+    FString ApiPath = /user/createWithArray;
+    auto HttpRequest = PlayFabRequestHandler::SendRequest(ApiPath, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FUserApi::OnCreateUsersWithArrayInput, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
 }
@@ -38,8 +70,24 @@ bool FUserApi::CreateUsersWithListInput(
         TArray&lt;User&gt; Body
         , const FOnCreateUsersWithListInput& SuccessDelegate = FOnCreateUsersWithListInput()
 {
-    POST
-    auto HttpRequest = PlayFabRequestHandler::SendRequest(/user/createWithList, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
+    FString VerbType = "POST";
+    bool bHasFormParams = false;
+    bool bHasBodyParam = true;
+    bool bHasQueryParams = false;
+    bool bHasPathParams = false;
+
+    TPair<FString, FString> ContentType;
+    if(VerbType == "GET")
+    {
+    }
+    
+            ContentType.Key = "content-type";
+            ContentType.Value = "application/json";
+    if(bHasQueryParams)
+    {
+    }
+    FString ApiPath = /user/createWithList;
+    auto HttpRequest = PlayFabRequestHandler::SendRequest(ApiPath, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FUserApi::OnCreateUsersWithListInput, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
 }
@@ -47,8 +95,23 @@ bool FUserApi::DeleteUser(
         FString Username
         , const FOnDeleteUser& SuccessDelegate = FOnDeleteUser()
 {
-    DELETE
-    auto HttpRequest = PlayFabRequestHandler::SendRequest(/user/{username}, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
+    FString VerbType = "DELETE";
+    bool bHasFormParams = false;
+    bool bHasBodyParam = false;
+    bool bHasQueryParams = false;
+    bool bHasPathParams = true;
+
+    TPair<FString, FString> ContentType;
+     Username
+    if(VerbType == "GET")
+    {
+        FString("{" + "Username" + "}")
+    }
+    if(bHasQueryParams)
+    {
+    }
+    FString ApiPath = /user/{username};
+    auto HttpRequest = PlayFabRequestHandler::SendRequest(ApiPath, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FUserApi::OnDeleteUser, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
 }
@@ -56,8 +119,23 @@ bool FUserApi::GetUserByName(
         FString Username
         , const FOnGetUserByName& SuccessDelegate = FOnGetUserByName()
 {
-    GET
-    auto HttpRequest = PlayFabRequestHandler::SendRequest(/user/{username}, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
+    FString VerbType = "GET";
+    bool bHasFormParams = false;
+    bool bHasBodyParam = false;
+    bool bHasQueryParams = false;
+    bool bHasPathParams = true;
+
+    TPair<FString, FString> ContentType;
+     Username
+    if(VerbType == "GET")
+    {
+        FString("{" + "Username" + "}")
+    }
+    if(bHasQueryParams)
+    {
+    }
+    FString ApiPath = /user/{username};
+    auto HttpRequest = PlayFabRequestHandler::SendRequest(ApiPath, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FUserApi::OnGetUserByName, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
 }
@@ -66,16 +144,42 @@ bool FUserApi::LoginUser(
         FString Password
         , const FOnLoginUser& SuccessDelegate = FOnLoginUser()
 {
-    GET
-    auto HttpRequest = PlayFabRequestHandler::SendRequest(/user/login, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
+    FString VerbType = "GET";
+    bool bHasFormParams = false;
+    bool bHasBodyParam = false;
+    bool bHasQueryParams = true;
+    bool bHasPathParams = false;
+
+    TPair<FString, FString> ContentType;
+    if(VerbType == "GET")
+    {
+    }
+    if(bHasQueryParams)
+    {
+    }
+    FString ApiPath = /user/login;
+    auto HttpRequest = PlayFabRequestHandler::SendRequest(ApiPath, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FUserApi::OnLoginUser, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
 }
 bool FUserApi::LogoutUser(        
         , const FOnLogoutUser& SuccessDelegate = FOnLogoutUser()
 {
-    GET
-    auto HttpRequest = PlayFabRequestHandler::SendRequest(/user/logout, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
+    FString VerbType = "GET";
+    bool bHasFormParams = false;
+    bool bHasBodyParam = false;
+    bool bHasQueryParams = false;
+    bool bHasPathParams = false;
+
+    TPair<FString, FString> ContentType;
+    if(VerbType == "GET")
+    {
+    }
+    if(bHasQueryParams)
+    {
+    }
+    FString ApiPath = /user/logout;
+    auto HttpRequest = PlayFabRequestHandler::SendRequest(ApiPath, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FUserApi::OnLogoutUser, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
 }
@@ -84,8 +188,26 @@ bool FUserApi::UpdateUser(
         User Body
         , const FOnUpdateUser& SuccessDelegate = FOnUpdateUser()
 {
-    PUT
-    auto HttpRequest = PlayFabRequestHandler::SendRequest(/user/{username}, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
+    FString VerbType = "PUT";
+    bool bHasFormParams = false;
+    bool bHasBodyParam = true;
+    bool bHasQueryParams = false;
+    bool bHasPathParams = true;
+
+    TPair<FString, FString> ContentType;
+     Username
+    if(VerbType == "GET")
+    {
+        FString("{" + "Username" + "}")
+    }
+    
+        ContentType.Key = "content-type";
+        ContentType.Value = "application/json";
+    if(bHasQueryParams)
+    {
+    }
+    FString ApiPath = /user/{username};
+    auto HttpRequest = PlayFabRequestHandler::SendRequest(ApiPath, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FUserApi::OnUpdateUser, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
 }

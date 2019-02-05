@@ -58,25 +58,11 @@ void FStoreApi::OnDeleteOrderResult(FHttpRequestPtr HttpRequest
         , bool bSucceeded, FOnDeleteOrder SuccessDelegate
         , FPlayFabErrorDelegate ErrorDelegate)
 {
-     OutResult;
     FPlayFabCppError errorResult;
-
     ResponseStr = HttpResponse->GetContentAsString();
-    TSharedPtr<FJsonObject> JsonObject;
-    TSharedRef<TJsonReader<> > JsonReader = TJsonReaderFactory<>::Create(ResponseStr);
 
-    if (FJsonSerializer::Deserialize(JsonReader, JsonObject) && JsonObject.IsValid())
-    {
-        OutResult.FromJson(JsonObject);
-        if (PlayFabRequestHandler::DecodeError(JsonObject, OutError))
-        {
-            return false;
-        }
-    }
-
-    {
-        SuccessDelegate.ExecuteIfBound(OutResult);
-    }
+    
+    
     
 }
 void FStoreApi::OnGetInventoryResult(FHttpRequestPtr HttpRequest
@@ -84,10 +70,10 @@ void FStoreApi::OnGetInventoryResult(FHttpRequestPtr HttpRequest
         , bool bSucceeded, FOnGetInventory SuccessDelegate
         , FPlayFabErrorDelegate ErrorDelegate)
 {
-    TMap<FString, int32> OutResult;
     FPlayFabCppError errorResult;
-
     ResponseStr = HttpResponse->GetContentAsString();
+
+    TMap<FString, int32> OutResult;
     TSharedPtr<FJsonObject> JsonObject;
     TSharedRef<TJsonReader<> > JsonReader = TJsonReaderFactory<>::Create(ResponseStr);
 
@@ -103,6 +89,8 @@ void FStoreApi::OnGetInventoryResult(FHttpRequestPtr HttpRequest
     {
         SuccessDelegate.ExecuteIfBound(OutResult);
     }
+    
+    
     
 }
 void FStoreApi::OnGetOrderByIdResult(FHttpRequestPtr HttpRequest
@@ -110,10 +98,10 @@ void FStoreApi::OnGetOrderByIdResult(FHttpRequestPtr HttpRequest
         , bool bSucceeded, FOnGetOrderById SuccessDelegate
         , FPlayFabErrorDelegate ErrorDelegate)
 {
-    Order OutResult;
     FPlayFabCppError errorResult;
-
     ResponseStr = HttpResponse->GetContentAsString();
+
+    Order OutResult;
     TSharedPtr<FJsonObject> JsonObject;
     TSharedRef<TJsonReader<> > JsonReader = TJsonReaderFactory<>::Create(ResponseStr);
 
@@ -130,16 +118,18 @@ void FStoreApi::OnGetOrderByIdResult(FHttpRequestPtr HttpRequest
         SuccessDelegate.ExecuteIfBound(OutResult);
     }
     
+    
+    
 }
 void FStoreApi::OnPlaceOrderResult(FHttpRequestPtr HttpRequest
         , FHttpResponsePtr HttpResponse
         , bool bSucceeded, FOnPlaceOrder SuccessDelegate
         , FPlayFabErrorDelegate ErrorDelegate)
 {
-    Order OutResult;
     FPlayFabCppError errorResult;
-
     ResponseStr = HttpResponse->GetContentAsString();
+
+    Order OutResult;
     TSharedPtr<FJsonObject> JsonObject;
     TSharedRef<TJsonReader<> > JsonReader = TJsonReaderFactory<>::Create(ResponseStr);
 
@@ -155,6 +145,8 @@ void FStoreApi::OnPlaceOrderResult(FHttpRequestPtr HttpRequest
     {
         SuccessDelegate.ExecuteIfBound(OutResult);
     }
+    
+    
     
 }
 

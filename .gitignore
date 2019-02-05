@@ -224,3 +224,6 @@ samples/client/petstore/elm/index.html
 # C
 samples/client/petstore/c/build
 samples/client/petstore/c/*.so
+
+obj/
+Debug/

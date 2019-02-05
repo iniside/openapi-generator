@@ -326,8 +326,14 @@ public class CppUnrealEngineClientCodegen extends AbstractCppCodegen {
     @Override
     public String getTypeDeclaration(Schema p) {
         String openAPIType = getSchemaType(p);
-
-        if (ModelUtils.isArraySchema(p)) {
+        if(ModelUtils.isModel(p))
+        {
+            String m = toModelName(openApiType);
+            String f = "F";
+            f += m;
+            return "F"+m;
+        }
+        else if (ModelUtils.isArraySchema(p)) {
             ArraySchema ap = (ArraySchema) p;
             Schema inner = ap.getItems();
             return getSchemaType(p) + "<" + getTypeDeclaration(inner) + ">";

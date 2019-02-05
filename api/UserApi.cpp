@@ -96,25 +96,11 @@ void FUserApi::OnCreateUserResult(FHttpRequestPtr HttpRequest
         , bool bSucceeded, FOnCreateUser SuccessDelegate
         , FPlayFabErrorDelegate ErrorDelegate)
 {
-     OutResult;
     FPlayFabCppError errorResult;
-
     ResponseStr = HttpResponse->GetContentAsString();
-    TSharedPtr<FJsonObject> JsonObject;
-    TSharedRef<TJsonReader<> > JsonReader = TJsonReaderFactory<>::Create(ResponseStr);
 
-    if (FJsonSerializer::Deserialize(JsonReader, JsonObject) && JsonObject.IsValid())
-    {
-        OutResult.FromJson(JsonObject);
-        if (PlayFabRequestHandler::DecodeError(JsonObject, OutError))
-        {
-            return false;
-        }
-    }
-
-    {
-        SuccessDelegate.ExecuteIfBound(OutResult);
-    }
+    
+    
     
 }
 void FUserApi::OnCreateUsersWithArrayInputResult(FHttpRequestPtr HttpRequest
@@ -122,25 +108,11 @@ void FUserApi::OnCreateUsersWithArrayInputResult(FHttpRequestPtr HttpRequest
         , bool bSucceeded, FOnCreateUsersWithArrayInput SuccessDelegate
         , FPlayFabErrorDelegate ErrorDelegate)
 {
-     OutResult;
     FPlayFabCppError errorResult;
-
     ResponseStr = HttpResponse->GetContentAsString();
-    TSharedPtr<FJsonObject> JsonObject;
-    TSharedRef<TJsonReader<> > JsonReader = TJsonReaderFactory<>::Create(ResponseStr);
 
-    if (FJsonSerializer::Deserialize(JsonReader, JsonObject) && JsonObject.IsValid())
-    {
-        OutResult.FromJson(JsonObject);
-        if (PlayFabRequestHandler::DecodeError(JsonObject, OutError))
-        {
-            return false;
-        }
-    }
-
-    {
-        SuccessDelegate.ExecuteIfBound(OutResult);
-    }
+    
+    
     
 }
 void FUserApi::OnCreateUsersWithListInputResult(FHttpRequestPtr HttpRequest
@@ -148,25 +120,11 @@ void FUserApi::OnCreateUsersWithListInputResult(FHttpRequestPtr HttpRequest
         , bool bSucceeded, FOnCreateUsersWithListInput SuccessDelegate
         , FPlayFabErrorDelegate ErrorDelegate)
 {
-     OutResult;
     FPlayFabCppError errorResult;
-
     ResponseStr = HttpResponse->GetContentAsString();
-    TSharedPtr<FJsonObject> JsonObject;
-    TSharedRef<TJsonReader<> > JsonReader = TJsonReaderFactory<>::Create(ResponseStr);
 
-    if (FJsonSerializer::Deserialize(JsonReader, JsonObject) && JsonObject.IsValid())
-    {
-        OutResult.FromJson(JsonObject);
-        if (PlayFabRequestHandler::DecodeError(JsonObject, OutError))
-        {
-            return false;
-        }
-    }
-
-    {
-        SuccessDelegate.ExecuteIfBound(OutResult);
-    }
+    
+    
     
 }
 void FUserApi::OnDeleteUserResult(FHttpRequestPtr HttpRequest
@@ -174,25 +132,11 @@ void FUserApi::OnDeleteUserResult(FHttpRequestPtr HttpRequest
         , bool bSucceeded, FOnDeleteUser SuccessDelegate
         , FPlayFabErrorDelegate ErrorDelegate)
 {
-     OutResult;
     FPlayFabCppError errorResult;
-
     ResponseStr = HttpResponse->GetContentAsString();
-    TSharedPtr<FJsonObject> JsonObject;
-    TSharedRef<TJsonReader<> > JsonReader = TJsonReaderFactory<>::Create(ResponseStr);
 
-    if (FJsonSerializer::Deserialize(JsonReader, JsonObject) && JsonObject.IsValid())
-    {
-        OutResult.FromJson(JsonObject);
-        if (PlayFabRequestHandler::DecodeError(JsonObject, OutError))
-        {
-            return false;
-        }
-    }
-
-    {
-        SuccessDelegate.ExecuteIfBound(OutResult);
-    }
+    
+    
     
 }
 void FUserApi::OnGetUserByNameResult(FHttpRequestPtr HttpRequest
@@ -200,10 +144,10 @@ void FUserApi::OnGetUserByNameResult(FHttpRequestPtr HttpRequest
         , bool bSucceeded, FOnGetUserByName SuccessDelegate
         , FPlayFabErrorDelegate ErrorDelegate)
 {
-    User OutResult;
     FPlayFabCppError errorResult;
-
     ResponseStr = HttpResponse->GetContentAsString();
+
+    User OutResult;
     TSharedPtr<FJsonObject> JsonObject;
     TSharedRef<TJsonReader<> > JsonReader = TJsonReaderFactory<>::Create(ResponseStr);
 
@@ -219,6 +163,8 @@ void FUserApi::OnGetUserByNameResult(FHttpRequestPtr HttpRequest
     {
         SuccessDelegate.ExecuteIfBound(OutResult);
     }
+    
+    
     
 }
 void FUserApi::OnLoginUserResult(FHttpRequestPtr HttpRequest
@@ -226,10 +172,10 @@ void FUserApi::OnLoginUserResult(FHttpRequestPtr HttpRequest
         , bool bSucceeded, FOnLoginUser SuccessDelegate
         , FPlayFabErrorDelegate ErrorDelegate)
 {
-    FString OutResult;
     FPlayFabCppError errorResult;
-
     ResponseStr = HttpResponse->GetContentAsString();
+
+    FString OutResult;
     TSharedPtr<FJsonObject> JsonObject;
     TSharedRef<TJsonReader<> > JsonReader = TJsonReaderFactory<>::Create(ResponseStr);
 
@@ -245,6 +191,8 @@ void FUserApi::OnLoginUserResult(FHttpRequestPtr HttpRequest
     {
         SuccessDelegate.ExecuteIfBound(OutResult);
     }
+    
+    
     
 }
 void FUserApi::OnLogoutUserResult(FHttpRequestPtr HttpRequest
@@ -252,25 +200,11 @@ void FUserApi::OnLogoutUserResult(FHttpRequestPtr HttpRequest
         , bool bSucceeded, FOnLogoutUser SuccessDelegate
         , FPlayFabErrorDelegate ErrorDelegate)
 {
-     OutResult;
     FPlayFabCppError errorResult;
-
     ResponseStr = HttpResponse->GetContentAsString();
-    TSharedPtr<FJsonObject> JsonObject;
-    TSharedRef<TJsonReader<> > JsonReader = TJsonReaderFactory<>::Create(ResponseStr);
 
-    if (FJsonSerializer::Deserialize(JsonReader, JsonObject) && JsonObject.IsValid())
-    {
-        OutResult.FromJson(JsonObject);
-        if (PlayFabRequestHandler::DecodeError(JsonObject, OutError))
-        {
-            return false;
-        }
-    }
-
-    {
-        SuccessDelegate.ExecuteIfBound(OutResult);
-    }
+    
+    
     
 }
 void FUserApi::OnUpdateUserResult(FHttpRequestPtr HttpRequest
@@ -278,25 +212,11 @@ void FUserApi::OnUpdateUserResult(FHttpRequestPtr HttpRequest
         , bool bSucceeded, FOnUpdateUser SuccessDelegate
         , FPlayFabErrorDelegate ErrorDelegate)
 {
-     OutResult;
     FPlayFabCppError errorResult;
-
     ResponseStr = HttpResponse->GetContentAsString();
-    TSharedPtr<FJsonObject> JsonObject;
-    TSharedRef<TJsonReader<> > JsonReader = TJsonReaderFactory<>::Create(ResponseStr);
 
-    if (FJsonSerializer::Deserialize(JsonReader, JsonObject) && JsonObject.IsValid())
-    {
-        OutResult.FromJson(JsonObject);
-        if (PlayFabRequestHandler::DecodeError(JsonObject, OutError))
-        {
-            return false;
-        }
-    }
-
-    {
-        SuccessDelegate.ExecuteIfBound(OutResult);
-    }
+    
+    
     
 }
 
