@@ -10,14 +10,14 @@
  */
 
 
-#include "PetApi.h"
+#include "FPetApi.h"
 
 namespace api {
 
 using namespace model;
 
 bool FPetApi::AddPet(        
-        Pet Body
+        FFPet body
         , const FOnAddPet& SuccessDelegate = FOnAddPet()
 {
     FString VerbType = "POST";
@@ -25,25 +25,23 @@ bool FPetApi::AddPet(
     bool bHasBodyParam = true;
     bool bHasQueryParams = false;
     bool bHasPathParams = false;
-
-    TPair<FString, FString> ContentType;
-    if(VerbType == "GET")
-    {
-    }
     
-        ContentType.Key = "content-type";
-        ContentType.Value = "application/json";
-    if(bHasQueryParams)
-    {
-    }
+    FString BasePath = /pet;
+
+    
+    TPair<FString, FString> ContentType;
+    
+    ContentType.Key = "content-type";
+    ContentType.Value = "application/json";
+
     FString ApiPath = /pet;
-    auto HttpRequest = PlayFabRequestHandler::SendRequest(ApiPath, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
+    CreateRequest(EVerbType::POST, BasePath, Headers, FHttpRequestCompleteDelegate());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FPetApi::OnAddPet, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
 }
 bool FPetApi::DeletePet(        
-        int64 PetId,
-        FString ApiKey
+        int64 petId,
+        FString apiKey
         , const FOnDeletePet& SuccessDelegate = FOnDeletePet()
 {
     FString VerbType = "DELETE";
@@ -51,23 +49,23 @@ bool FPetApi::DeletePet(
     bool bHasBodyParam = false;
     bool bHasQueryParams = false;
     bool bHasPathParams = true;
+    
+    FString BasePath = /pet/{petId};
 
+    
     TPair<FString, FString> ContentType;
-     PetId
-    if(VerbType == "GET")
-    {
-        FString("{" + "PetId" + "}")
-    }
-    if(bHasQueryParams)
-    {
-    }
+    TPair<FString, int64> Param;
+    Param.Key = FString("{" + "petId" + "}");
+    Param.Value = petId
+    ConstructPathParams(Param, /pet/{petId});
+
     FString ApiPath = /pet/{petId};
-    auto HttpRequest = PlayFabRequestHandler::SendRequest(ApiPath, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
+    CreateRequest(EVerbType::DELETE, BasePath, Headers, FHttpRequestCompleteDelegate());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FPetApi::OnDeletePet, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
 }
 bool FPetApi::FindPetsByStatus(        
-        TArray&lt;FString&gt; Status
+        TArray&lt;FString&gt; status
         , const FOnFindPetsByStatus& SuccessDelegate = FOnFindPetsByStatus()
 {
     FString VerbType = "GET";
@@ -75,46 +73,32 @@ bool FPetApi::FindPetsByStatus(
     bool bHasBodyParam = false;
     bool bHasQueryParams = true;
     bool bHasPathParams = false;
+    
+    FString BasePath = /pet/findByStatus;
 
-    TPair<FString, FString> ContentType;
-    if(VerbType == "GET")
-    {
-    }
-    if(bHasQueryParams)
-    {
-        FString Params = "?";
-        TArray<TPair<FString, >> GetParams;
-		TPair<FString, > statusParam;
-		statusParam.Key = ;
-		for(TArray&lt;FString&gt; p : Status)
+     TArray<TPair<FString,TArray&lt;FString&gt;>> Params;
+   
+	{
+        TPair<FString,TArray&lt;FString&gt;> statusParam;
+	    statusParam.Key = "status";
+	    for(FString p : status)
         {
-            statusParam.Add(p);
+            statusParam.Value.Add(p);
         }
-		GetParams.Add(statusParam);
-		//Params += "?status=" + Pending;
-		for (int32 ParamIdx = 0; ParamIdx < GetParams.Num(); ParamIdx++)
-		{
-			for (int32 ValueIdx = 0; ValueIdx < GetParams[ParamIdx].Value.Num(); ValueIdx++)
-			{
-				Params += GetParams[ParamIdx].Key + "=" + GetParams[ParamIdx].Value[ValueIdx];
-				if (ValueIdx < GetParams[ParamIdx].Value.Num() - 1)
-				{
-					Params += "&";
-				}
-			}
-			if (ParamIdx < GetParams.Num() - 1)
-			{
-				Params += "&";
-			}
-		}
+        Params.Add(statusParam);
     }
+    FString QueryParams = ConstructQueryParams(Params);
+    BasePath += QueryParams;
+    
+    TPair<FString, FString> ContentType;
+
     FString ApiPath = /pet/findByStatus;
-    auto HttpRequest = PlayFabRequestHandler::SendRequest(ApiPath, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
+    CreateRequest(EVerbType::GET, BasePath, Headers, FHttpRequestCompleteDelegate());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FPetApi::OnFindPetsByStatus, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
 }
 bool FPetApi::FindPetsByTags(        
-        TArray&lt;FString&gt; Tags
+        TArray&lt;FString&gt; tags
         , const FOnFindPetsByTags& SuccessDelegate = FOnFindPetsByTags()
 {
     FString VerbType = "GET";
@@ -122,46 +106,32 @@ bool FPetApi::FindPetsByTags(
     bool bHasBodyParam = false;
     bool bHasQueryParams = true;
     bool bHasPathParams = false;
+    
+    FString BasePath = /pet/findByTags;
 
-    TPair<FString, FString> ContentType;
-    if(VerbType == "GET")
-    {
-    }
-    if(bHasQueryParams)
-    {
-        FString Params = "?";
-        TArray<TPair<FString, >> GetParams;
-		TPair<FString, > statusParam;
-		statusParam.Key = ;
-		for(TArray&lt;FString&gt; p : Tags)
+     TArray<TPair<FString,TArray&lt;FString&gt;>> Params;
+   
+	{
+        TPair<FString,TArray&lt;FString&gt;> statusParam;
+	    statusParam.Key = "tags";
+	    for(FString p : tags)
         {
-            statusParam.Add(p);
+            statusParam.Value.Add(p);
         }
-		GetParams.Add(statusParam);
-		//Params += "?status=" + Pending;
-		for (int32 ParamIdx = 0; ParamIdx < GetParams.Num(); ParamIdx++)
-		{
-			for (int32 ValueIdx = 0; ValueIdx < GetParams[ParamIdx].Value.Num(); ValueIdx++)
-			{
-				Params += GetParams[ParamIdx].Key + "=" + GetParams[ParamIdx].Value[ValueIdx];
-				if (ValueIdx < GetParams[ParamIdx].Value.Num() - 1)
-				{
-					Params += "&";
-				}
-			}
-			if (ParamIdx < GetParams.Num() - 1)
-			{
-				Params += "&";
-			}
-		}
+        Params.Add(statusParam);
     }
+    FString QueryParams = ConstructQueryParams(Params);
+    BasePath += QueryParams;
+    
+    TPair<FString, FString> ContentType;
+
     FString ApiPath = /pet/findByTags;
-    auto HttpRequest = PlayFabRequestHandler::SendRequest(ApiPath, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
+    CreateRequest(EVerbType::GET, BasePath, Headers, FHttpRequestCompleteDelegate());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FPetApi::OnFindPetsByTags, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
 }
 bool FPetApi::GetPetById(        
-        int64 PetId
+        int64 petId
         , const FOnGetPetById& SuccessDelegate = FOnGetPetById()
 {
     FString VerbType = "GET";
@@ -169,23 +139,23 @@ bool FPetApi::GetPetById(
     bool bHasBodyParam = false;
     bool bHasQueryParams = false;
     bool bHasPathParams = true;
+    
+    FString BasePath = /pet/{petId};
 
+    
     TPair<FString, FString> ContentType;
-     PetId
-    if(VerbType == "GET")
-    {
-        FString("{" + "PetId" + "}")
-    }
-    if(bHasQueryParams)
-    {
-    }
+    TPair<FString, int64> Param;
+    Param.Key = FString("{" + "petId" + "}");
+    Param.Value = petId
+    ConstructPathParams(Param, /pet/{petId});
+
     FString ApiPath = /pet/{petId};
-    auto HttpRequest = PlayFabRequestHandler::SendRequest(ApiPath, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
+    CreateRequest(EVerbType::GET, BasePath, Headers, FHttpRequestCompleteDelegate());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FPetApi::OnGetPetById, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
 }
 bool FPetApi::UpdatePet(        
-        Pet Body
+        FFPet body
         , const FOnUpdatePet& SuccessDelegate = FOnUpdatePet()
 {
     FString VerbType = "PUT";
@@ -193,26 +163,24 @@ bool FPetApi::UpdatePet(
     bool bHasBodyParam = true;
     bool bHasQueryParams = false;
     bool bHasPathParams = false;
-
-    TPair<FString, FString> ContentType;
-    if(VerbType == "GET")
-    {
-    }
     
-        ContentType.Key = "content-type";
-        ContentType.Value = "application/json";
-    if(bHasQueryParams)
-    {
-    }
+    FString BasePath = /pet;
+
+    
+    TPair<FString, FString> ContentType;
+    
+    ContentType.Key = "content-type";
+    ContentType.Value = "application/json";
+
     FString ApiPath = /pet;
-    auto HttpRequest = PlayFabRequestHandler::SendRequest(ApiPath, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
+    CreateRequest(EVerbType::PUT, BasePath, Headers, FHttpRequestCompleteDelegate());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FPetApi::OnUpdatePet, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
 }
 bool FPetApi::UpdatePetWithForm(        
-        int64 PetId,
-        FString Name,
-        FString Status
+        int64 petId,
+        FString name,
+        FString status
         , const FOnUpdatePetWithForm& SuccessDelegate = FOnUpdatePetWithForm()
 {
     FString VerbType = "POST";
@@ -220,25 +188,25 @@ bool FPetApi::UpdatePetWithForm(
     bool bHasBodyParam = false;
     bool bHasQueryParams = false;
     bool bHasPathParams = true;
+    
+    FString BasePath = /pet/{petId};
 
+    
     TPair<FString, FString> ContentType;
-     PetId
-    if(VerbType == "GET")
-    {
-        FString("{" + "PetId" + "}")
-    }
-    if(bHasQueryParams)
-    {
-    }
+    TPair<FString, int64> Param;
+    Param.Key = FString("{" + "petId" + "}");
+    Param.Value = petId
+    ConstructPathParams(Param, /pet/{petId});
+
     FString ApiPath = /pet/{petId};
-    auto HttpRequest = PlayFabRequestHandler::SendRequest(ApiPath, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
+    CreateRequest(EVerbType::POST, BasePath, Headers, FHttpRequestCompleteDelegate());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FPetApi::OnUpdatePetWithForm, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
 }
 bool FPetApi::UploadFile(        
-        int64 PetId,
-        FString AdditionalMetadata,
-        HttpContent File
+        int64 petId,
+        FString additionalMetadata,
+        HttpContent file
         , const FOnUploadFile& SuccessDelegate = FOnUploadFile()
 {
     FString VerbType = "POST";
@@ -246,18 +214,18 @@ bool FPetApi::UploadFile(
     bool bHasBodyParam = false;
     bool bHasQueryParams = false;
     bool bHasPathParams = true;
+    
+    FString BasePath = /pet/{petId}/uploadImage;
 
+    
     TPair<FString, FString> ContentType;
-     PetId
-    if(VerbType == "GET")
-    {
-        FString("{" + "PetId" + "}")
-    }
-    if(bHasQueryParams)
-    {
-    }
+    TPair<FString, int64> Param;
+    Param.Key = FString("{" + "petId" + "}");
+    Param.Value = petId
+    ConstructPathParams(Param, /pet/{petId}/uploadImage);
+
     FString ApiPath = /pet/{petId}/uploadImage;
-    auto HttpRequest = PlayFabRequestHandler::SendRequest(ApiPath, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
+    CreateRequest(EVerbType::POST, BasePath, Headers, FHttpRequestCompleteDelegate());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FPetApi::OnUploadFile, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
 }
@@ -294,9 +262,9 @@ void FPetApi::OnFindPetsByStatusResult(FHttpRequestPtr HttpRequest
     FPlayFabCppError errorResult;
     ResponseStr = HttpResponse->GetContentAsString();
 
-    TArray<Pet> OutResult;
+    TArray<FPet> OutResult;
     FString ResponseStr = HttpResponse->GetContentAsString();
-	DecodeJsonArray<TArray<Pet>>(OutResult, HttpResponse);
+	DecodeJsonArray<TArray<FPet>>(OutResult, HttpResponse);
     
     
     
@@ -309,9 +277,9 @@ void FPetApi::OnFindPetsByTagsResult(FHttpRequestPtr HttpRequest
     FPlayFabCppError errorResult;
     ResponseStr = HttpResponse->GetContentAsString();
 
-    TArray<Pet> OutResult;
+    TArray<FPet> OutResult;
     FString ResponseStr = HttpResponse->GetContentAsString();
-	DecodeJsonArray<TArray<Pet>>(OutResult, HttpResponse);
+	DecodeJsonArray<TArray<FPet>>(OutResult, HttpResponse);
     
     
     
@@ -324,7 +292,7 @@ void FPetApi::OnGetPetByIdResult(FHttpRequestPtr HttpRequest
     FPlayFabCppError errorResult;
     ResponseStr = HttpResponse->GetContentAsString();
 
-    Pet OutResult;
+    FPet OutResult;
     TSharedPtr<FJsonObject> JsonObject;
     TSharedRef<TJsonReader<> > JsonReader = TJsonReaderFactory<>::Create(ResponseStr);
 
@@ -376,7 +344,7 @@ void FPetApi::OnUploadFileResult(FHttpRequestPtr HttpRequest
     FPlayFabCppError errorResult;
     ResponseStr = HttpResponse->GetContentAsString();
 
-    ApiResponse OutResult;
+    FApiResponse OutResult;
     TSharedPtr<FJsonObject> JsonObject;
     TSharedRef<TJsonReader<> > JsonReader = TJsonReaderFactory<>::Create(ResponseStr);
 

@@ -11,11 +11,11 @@
 
 
 
-#include "ApiResponse.h"
+#include "FApiResponse.h"
 
 namespace model {
 
-ApiResponse::ApiResponse()
+FApiResponse::FApiResponse()
 {
     m_Code = 0;
     m_CodeIsSet = false;
@@ -25,16 +25,16 @@ ApiResponse::ApiResponse()
     m_MessageIsSet = false;
 }
 
-ApiResponse::~ApiResponse()
+FApiResponse::~FApiResponse()
 {
 }
 
-void ApiResponse::validate()
+void FApiResponse::validate()
 {
     // TODO: implement validation
 }
 
-web::json::value ApiResponse::toJson() const
+web::json::value FApiResponse::toJson() const
 {
     web::json::value val = web::json::value::object();
 
@@ -54,7 +54,7 @@ web::json::value ApiResponse::toJson() const
     return val;
 }
 
-void ApiResponse::fromJson(const web::json::value& val)
+void FApiResponse::fromJson(const web::json::value& val)
 {
     if(val.has_field(utility::conversions::to_string_t("code")))
     {
@@ -82,7 +82,7 @@ void ApiResponse::fromJson(const web::json::value& val)
     }
 }
 
-void ApiResponse::toMultipart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& prefix) const
+void FApiResponse::toMultipart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& prefix) const
 {
     utility::string_t namePrefix = prefix;
     if(namePrefix.size() > 0 && namePrefix.substr(namePrefix.size() - 1) != utility::conversions::to_string_t("."))
@@ -104,7 +104,7 @@ void ApiResponse::toMultipart(std::shared_ptr<MultipartFormData> multipart, cons
     }
 }
 
-void ApiResponse::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& prefix)
+void FApiResponse::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& prefix)
 {
     utility::string_t namePrefix = prefix;
     if(namePrefix.size() > 0 && namePrefix.substr(namePrefix.size() - 1) != utility::conversions::to_string_t("."))
@@ -126,65 +126,65 @@ void ApiResponse::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, co
     }
 }
 
-int32 ApiResponse::getCode() const
+int32 FApiResponse::getCode() const
 {
     return m_Code;
 }
 
-void ApiResponse::setCode(int32 value)
+void FApiResponse::setCode(int32 value)
 {
     m_Code = value;
     m_CodeIsSet = true;
 }
 
-bool ApiResponse::codeIsSet() const
+bool FApiResponse::codeIsSet() const
 {
     return m_CodeIsSet;
 }
 
-void ApiResponse::unsetCode()
+void FApiResponse::unsetCode()
 {
     m_CodeIsSet = false;
 }
 
-FString ApiResponse::getType() const
+FString FApiResponse::getType() const
 {
     return m_Type;
 }
 
-void ApiResponse::setType(const FString& value)
+void FApiResponse::setType(const FString& value)
 {
     m_Type = value;
     m_TypeIsSet = true;
 }
 
-bool ApiResponse::typeIsSet() const
+bool FApiResponse::typeIsSet() const
 {
     return m_TypeIsSet;
 }
 
-void ApiResponse::unsetType()
+void FApiResponse::unsetType()
 {
     m_TypeIsSet = false;
 }
 
-FString ApiResponse::getMessage() const
+FString FApiResponse::getMessage() const
 {
     return m_Message;
 }
 
-void ApiResponse::setMessage(const FString& value)
+void FApiResponse::setMessage(const FString& value)
 {
     m_Message = value;
     m_MessageIsSet = true;
 }
 
-bool ApiResponse::messageIsSet() const
+bool FApiResponse::messageIsSet() const
 {
     return m_MessageIsSet;
 }
 
-void ApiResponse::unsetMessage()
+void FApiResponse::unsetMessage()
 {
     m_MessageIsSet = false;
 }

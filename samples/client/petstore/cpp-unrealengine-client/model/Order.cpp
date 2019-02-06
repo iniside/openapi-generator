@@ -11,11 +11,11 @@
 
 
 
-#include "Order.h"
+#include "FOrder.h"
 
 namespace model {
 
-Order::Order()
+FOrder::FOrder()
 {
     m_Id = 0L;
     m_IdIsSet = false;
@@ -31,16 +31,16 @@ Order::Order()
     m_CompleteIsSet = false;
 }
 
-Order::~Order()
+FOrder::~FOrder()
 {
 }
 
-void Order::validate()
+void FOrder::validate()
 {
     // TODO: implement validation
 }
 
-web::json::value Order::toJson() const
+web::json::value FOrder::toJson() const
 {
     web::json::value val = web::json::value::object();
 
@@ -72,7 +72,7 @@ web::json::value Order::toJson() const
     return val;
 }
 
-void Order::fromJson(const web::json::value& val)
+void FOrder::fromJson(const web::json::value& val)
 {
     if(val.has_field(utility::conversions::to_string_t("id")))
     {
@@ -124,7 +124,7 @@ void Order::fromJson(const web::json::value& val)
     }
 }
 
-void Order::toMultipart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& prefix) const
+void FOrder::toMultipart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& prefix) const
 {
     utility::string_t namePrefix = prefix;
     if(namePrefix.size() > 0 && namePrefix.substr(namePrefix.size() - 1) != utility::conversions::to_string_t("."))
@@ -158,7 +158,7 @@ void Order::toMultipart(std::shared_ptr<MultipartFormData> multipart, const util
     }
 }
 
-void Order::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& prefix)
+void FOrder::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& prefix)
 {
     utility::string_t namePrefix = prefix;
     if(namePrefix.size() > 0 && namePrefix.substr(namePrefix.size() - 1) != utility::conversions::to_string_t("."))
@@ -192,128 +192,128 @@ void Order::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const ut
     }
 }
 
-int64 Order::getId() const
+int64 FOrder::getId() const
 {
     return m_Id;
 }
 
-void Order::setId(int64 value)
+void FOrder::setId(int64 value)
 {
     m_Id = value;
     m_IdIsSet = true;
 }
 
-bool Order::idIsSet() const
+bool FOrder::idIsSet() const
 {
     return m_IdIsSet;
 }
 
-void Order::unsetId()
+void FOrder::unsetId()
 {
     m_IdIsSet = false;
 }
 
-int64 Order::getPetId() const
+int64 FOrder::getPetId() const
 {
     return m_PetId;
 }
 
-void Order::setPetId(int64 value)
+void FOrder::setPetId(int64 value)
 {
     m_PetId = value;
     m_PetIdIsSet = true;
 }
 
-bool Order::petIdIsSet() const
+bool FOrder::petIdIsSet() const
 {
     return m_PetIdIsSet;
 }
 
-void Order::unsetPetId()
+void FOrder::unsetPetId()
 {
     m_PetIdIsSet = false;
 }
 
-int32 Order::getQuantity() const
+int32 FOrder::getQuantity() const
 {
     return m_Quantity;
 }
 
-void Order::setQuantity(int32 value)
+void FOrder::setQuantity(int32 value)
 {
     m_Quantity = value;
     m_QuantityIsSet = true;
 }
 
-bool Order::quantityIsSet() const
+bool FOrder::quantityIsSet() const
 {
     return m_QuantityIsSet;
 }
 
-void Order::unsetQuantity()
+void FOrder::unsetQuantity()
 {
     m_QuantityIsSet = false;
 }
 
-FDateTime Order::getShipDate() const
+FDateTime FOrder::getShipDate() const
 {
     return m_ShipDate;
 }
 
-void Order::setShipDate(const FDateTime& value)
+void FOrder::setShipDate(const FDateTime& value)
 {
     m_ShipDate = value;
     m_ShipDateIsSet = true;
 }
 
-bool Order::shipDateIsSet() const
+bool FOrder::shipDateIsSet() const
 {
     return m_ShipDateIsSet;
 }
 
-void Order::unsetShipDate()
+void FOrder::unsetShipDate()
 {
     m_ShipDateIsSet = false;
 }
 
-FString Order::getStatus() const
+FString FOrder::getStatus() const
 {
     return m_Status;
 }
 
-void Order::setStatus(const FString& value)
+void FOrder::setStatus(const FString& value)
 {
     m_Status = value;
     m_StatusIsSet = true;
 }
 
-bool Order::statusIsSet() const
+bool FOrder::statusIsSet() const
 {
     return m_StatusIsSet;
 }
 
-void Order::unsetStatus()
+void FOrder::unsetStatus()
 {
     m_StatusIsSet = false;
 }
 
-bool Order::isComplete() const
+bool FOrder::isComplete() const
 {
     return m_Complete;
 }
 
-void Order::setComplete(bool value)
+void FOrder::setComplete(bool value)
 {
     m_Complete = value;
     m_CompleteIsSet = true;
 }
 
-bool Order::completeIsSet() const
+bool FOrder::completeIsSet() const
 {
     return m_CompleteIsSet;
 }
 
-void Order::unsetComplete()
+void FOrder::unsetComplete()
 {
     m_CompleteIsSet = false;
 }

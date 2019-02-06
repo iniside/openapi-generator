@@ -10,7 +10,7 @@
  */
 
 /*
- * ApiResponse.h
+ * FApiResponse.h
  *
  * Describes the result of uploading an image resource
  */
@@ -26,7 +26,7 @@ namespace model {
 /*
  * Describes the result of uploading an image resource
  */
-struct  FApiResponse
+struct  FFApiResponse
     : public FJsonSerializable
 {
 public:

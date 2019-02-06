@@ -10,7 +10,7 @@
  */
 
 /*
- * Tag.h
+ * FTag.h
  *
  * A tag for a pet
  */
@@ -26,7 +26,7 @@ namespace model {
 /*
  * A tag for a pet
  */
-struct  FTag
+struct  FFTag
     : public FJsonSerializable
 {
 public:

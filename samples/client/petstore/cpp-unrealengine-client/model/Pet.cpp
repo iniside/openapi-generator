@@ -11,11 +11,11 @@
 
 
 
-#include "Pet.h"
+#include "FPet.h"
 
 namespace model {
 
-Pet::Pet()
+FPet::FPet()
 {
     m_Id = 0L;
     m_IdIsSet = false;
@@ -26,16 +26,16 @@ Pet::Pet()
     m_StatusIsSet = false;
 }
 
-Pet::~Pet()
+FPet::~FPet()
 {
 }
 
-void Pet::validate()
+void FPet::validate()
 {
     // TODO: implement validation
 }
 
-web::json::value Pet::toJson() const
+web::json::value FPet::toJson() const
 {
     web::json::value val = web::json::value::object();
 
@@ -75,7 +75,7 @@ web::json::value Pet::toJson() const
     return val;
 }
 
-void Pet::fromJson(const web::json::value& val)
+void FPet::fromJson(const web::json::value& val)
 {
     if(val.has_field(utility::conversions::to_string_t("id")))
     {
@@ -90,7 +90,7 @@ void Pet::fromJson(const web::json::value& val)
         const web::json::value& fieldValue = val.at(utility::conversions::to_string_t("category"));
         if(!fieldValue.is_null())
         {
-            Category newItem(nullptr);
+            FCategory newItem(nullptr);
             newItem->fromJson(fieldValue);
             setCategory( newItem );
         }
@@ -113,11 +113,11 @@ void Pet::fromJson(const web::json::value& val)
         {
             if(item.is_null())
             {
-                m_Tags.push_back( Tag(nullptr) );
+                m_Tags.push_back( FTag(nullptr) );
             }
             else
             {
-                Tag newItem(nullptr);
+                FTag newItem(nullptr);
                 newItem->fromJson(item);
                 m_Tags.push_back( newItem );
             }
@@ -134,7 +134,7 @@ void Pet::fromJson(const web::json::value& val)
     }
 }
 
-void Pet::toMultipart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& prefix) const
+void FPet::toMultipart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& prefix) const
 {
     utility::string_t namePrefix = prefix;
     if(namePrefix.size() > 0 && namePrefix.substr(namePrefix.size() - 1) != utility::conversions::to_string_t("."))
@@ -180,7 +180,7 @@ void Pet::toMultipart(std::shared_ptr<MultipartFormData> multipart, const utilit
     }
 }
 
-void Pet::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& prefix)
+void FPet::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& prefix)
 {
     utility::string_t namePrefix = prefix;
     if(namePrefix.size() > 0 && namePrefix.substr(namePrefix.size() - 1) != utility::conversions::to_string_t("."))
@@ -196,7 +196,7 @@ void Pet::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const util
     {
         if(multipart->hasContent(utility::conversions::to_string_t("category")))
         {
-            Category newItem(nullptr);
+            FCategory newItem(nullptr);
             newItem->fromMultiPart(multipart, utility::conversions::to_string_t("category."));
             setCategory( newItem );
         }
@@ -221,11 +221,11 @@ void Pet::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const util
         {
             if(item.is_null())
             {
-                m_Tags.push_back( Tag(nullptr) );
+                m_Tags.push_back( FTag(nullptr) );
             }
             else
             {
-                Tag newItem(nullptr);
+                FTag newItem(nullptr);
                 newItem->fromJson(item);
                 m_Tags.push_back( newItem );
             }
@@ -238,108 +238,108 @@ void Pet::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const util
     }
 }
 
-int64 Pet::getId() const
+int64 FPet::getId() const
 {
     return m_Id;
 }
 
-void Pet::setId(int64 value)
+void FPet::setId(int64 value)
 {
     m_Id = value;
     m_IdIsSet = true;
 }
 
-bool Pet::idIsSet() const
+bool FPet::idIsSet() const
 {
     return m_IdIsSet;
 }
 
-void Pet::unsetId()
+void FPet::unsetId()
 {
     m_IdIsSet = false;
 }
 
-Category Pet::getCategory() const
+FCategory FPet::getCategory() const
 {
     return m_Category;
 }
 
-void Pet::setCategory(const Category& value)
+void FPet::setCategory(const FCategory& value)
 {
     m_Category = value;
     m_CategoryIsSet = true;
 }
 
-bool Pet::categoryIsSet() const
+bool FPet::categoryIsSet() const
 {
     return m_CategoryIsSet;
 }
 
-void Pet::unsetCategory()
+void FPet::unsetCategory()
 {
     m_CategoryIsSet = false;
 }
 
-FString Pet::getName() const
+FString FPet::getName() const
 {
     return m_Name;
 }
 
-void Pet::setName(const FString& value)
+void FPet::setName(const FString& value)
 {
     m_Name = value;
     
 }
 
-TArray<FString>& Pet::getPhotoUrls()
+TArray<FString>& FPet::getPhotoUrls()
 {
     return m_PhotoUrls;
 }
 
-void Pet::setPhotoUrls(const TArray<FString>& value)
+void FPet::setPhotoUrls(const TArray<FString>& value)
 {
     m_PhotoUrls = value;
     
 }
 
-TArray<Tag>& Pet::getTags()
+TArray<FTag>& FPet::getTags()
 {
     return m_Tags;
 }
 
-void Pet::setTags(const TArray<Tag>& value)
+void FPet::setTags(const TArray<FTag>& value)
 {
     m_Tags = value;
     m_TagsIsSet = true;
 }
 
-bool Pet::tagsIsSet() const
+bool FPet::tagsIsSet() const
 {
     return m_TagsIsSet;
 }
 
-void Pet::unsetTags()
+void FPet::unsetTags()
 {
     m_TagsIsSet = false;
 }
 
-FString Pet::getStatus() const
+FString FPet::getStatus() const
 {
     return m_Status;
 }
 
-void Pet::setStatus(const FString& value)
+void FPet::setStatus(const FString& value)
 {
     m_Status = value;
     m_StatusIsSet = true;
 }
 
-bool Pet::statusIsSet() const
+bool FPet::statusIsSet() const
 {
     return m_StatusIsSet;
 }
 
-void Pet::unsetStatus()
+void FPet::unsetStatus()
 {
     m_StatusIsSet = false;
 }

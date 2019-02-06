@@ -10,7 +10,7 @@
  */
 
 /*
- * UserApi.h
+ * FUserApi.h
  *
  * 
  */
@@ -19,53 +19,53 @@
 #include "../ApiClient.h"
 
 #include "FString.h"
+#include "FUser.h"
 #include "TArray.h"
-#include "User.h"
 
 
 
 namespace api {
 
-class  FUserApi : public IUserApi 
+class  FUserApi : public IFUserApi 
 {
 public:
     DECLARE_DELEGATE_OneParam(FOnCreateUser, const & )
     DECLARE_DELEGATE_OneParam(FOnCreateUsersWithArrayInput, const & )
     DECLARE_DELEGATE_OneParam(FOnCreateUsersWithListInput, const & )
     DECLARE_DELEGATE_OneParam(FOnDeleteUser, const & )
-    DECLARE_DELEGATE_OneParam(FOnGetUserByName, const User& )
+    DECLARE_DELEGATE_OneParam(FOnGetUserByName, const FUser& )
     DECLARE_DELEGATE_OneParam(FOnLoginUser, const FString& )
     DECLARE_DELEGATE_OneParam(FOnLogoutUser, const & )
     DECLARE_DELEGATE_OneParam(FOnUpdateUser, const & )
    
     bool CreateUser(
-        User Body
+        FFUser body
         , const FOnCreateUser& SuccessDelegate = FOnCreateUser()
     )
    
     bool CreateUsersWithArrayInput(
-        TArray&lt;User&gt; Body
+        TArray&lt;FUser&gt; body
         , const FOnCreateUsersWithArrayInput& SuccessDelegate = FOnCreateUsersWithArrayInput()
     )
    
     bool CreateUsersWithListInput(
-        TArray&lt;User&gt; Body
+        TArray&lt;FUser&gt; body
         , const FOnCreateUsersWithListInput& SuccessDelegate = FOnCreateUsersWithListInput()
     )
    
     bool DeleteUser(
-        FString Username
+        FString username
         , const FOnDeleteUser& SuccessDelegate = FOnDeleteUser()
     )
    
     bool GetUserByName(
-        FString Username
+        FString username
         , const FOnGetUserByName& SuccessDelegate = FOnGetUserByName()
     )
    
     bool LoginUser(
-        FString Username,
-        FString Password
+        FString username,
+        FString password
         , const FOnLoginUser& SuccessDelegate = FOnLoginUser()
     )
    
@@ -74,8 +74,8 @@ public:
     )
    
     bool UpdateUser(
-        FString Username,
-        User Body
+        FString username,
+        FFUser body
         , const FOnUpdateUser& SuccessDelegate = FOnUpdateUser()
     )
 

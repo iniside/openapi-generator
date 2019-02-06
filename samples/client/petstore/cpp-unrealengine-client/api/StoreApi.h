@@ -10,7 +10,7 @@
  */
 
 /*
- * StoreApi.h
+ * FStoreApi.h
  *
  * 
  */
@@ -18,24 +18,24 @@
 
 #include "../ApiClient.h"
 
+#include "FOrder.h"
 #include "FString.h"
-#include "Order.h"
 #include "TMap.h"
 
 
 
 namespace api {
 
-class  FStoreApi : public IStoreApi 
+class  FStoreApi : public IFStoreApi 
 {
 public:
     DECLARE_DELEGATE_OneParam(FOnDeleteOrder, const & )
     DECLARE_DELEGATE_OneParam(FOnGetInventory, const TMap<FString, int32>& )
-    DECLARE_DELEGATE_OneParam(FOnGetOrderById, const Order& )
-    DECLARE_DELEGATE_OneParam(FOnPlaceOrder, const Order& )
+    DECLARE_DELEGATE_OneParam(FOnGetOrderById, const FOrder& )
+    DECLARE_DELEGATE_OneParam(FOnPlaceOrder, const FOrder& )
    
     bool DeleteOrder(
-        FString OrderId
+        FString orderId
         , const FOnDeleteOrder& SuccessDelegate = FOnDeleteOrder()
     )
    
@@ -44,12 +44,12 @@ public:
     )
    
     bool GetOrderById(
-        int64 OrderId
+        int64 orderId
         , const FOnGetOrderById& SuccessDelegate = FOnGetOrderById()
     )
    
     bool PlaceOrder(
-        Order Body
+        FFOrder body
         , const FOnPlaceOrder& SuccessDelegate = FOnPlaceOrder()
     )
 

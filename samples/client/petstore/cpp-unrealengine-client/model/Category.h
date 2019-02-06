@@ -10,7 +10,7 @@
  */
 
 /*
- * Category.h
+ * FCategory.h
  *
  * A category for a pet
  */
@@ -26,7 +26,7 @@ namespace model {
 /*
  * A category for a pet
  */
-struct  FCategory
+struct  FFCategory
     : public FJsonSerializable
 {
 public:

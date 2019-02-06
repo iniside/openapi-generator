@@ -83,7 +83,8 @@ public class CppUnrealEngineClientCodegen extends AbstractCppCodegen {
     
     public CppUnrealEngineClientCodegen() {
         super();
-
+        
+        modelNamePrefix = "F";
         apiPackage = "api";
         modelPackage = "model";
         modelTemplateFiles.clear();
@@ -298,7 +299,7 @@ public class CppUnrealEngineClientCodegen extends AbstractCppCodegen {
             return escapeReservedWord(name);
         }
 
-        return StringUtils.camelize(sanitizeName(super.toParamName(name)));
+        return sanitizeName(super.toParamName(name));//StringUtils.camelize(sanitizeName(super.toParamName(name)));
     }
     @Override
     public String toModelFilename(String name) {
@@ -326,14 +327,7 @@ public class CppUnrealEngineClientCodegen extends AbstractCppCodegen {
     @Override
     public String getTypeDeclaration(Schema p) {
         String openAPIType = getSchemaType(p);
-        if(ModelUtils.isModel(p))
-        {
-            String m = toModelName(openApiType);
-            String f = "F";
-            f += m;
-            return "F"+m;
-        }
-        else if (ModelUtils.isArraySchema(p)) {
+        if (ModelUtils.isArraySchema(p)) {
             ArraySchema ap = (ArraySchema) p;
             Schema inner = ap.getItems();
             return getSchemaType(p) + "<" + getTypeDeclaration(inner) + ">";

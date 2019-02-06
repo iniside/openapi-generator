@@ -10,7 +10,7 @@
  */
 
 /*
- * PetApi.h
+ * FPetApi.h
  *
  * 
  */
@@ -18,69 +18,69 @@
 
 #include "../ApiClient.h"
 
-#include "ApiResponse.h"
+#include "FApiResponse.h"
+#include "FPet.h"
 #include "FString.h"
 #include "HttpContent.h"
-#include "Pet.h"
 
 
 
 namespace api {
 
-class  FPetApi : public IPetApi 
+class  FPetApi : public IFPetApi 
 {
 public:
     DECLARE_DELEGATE_OneParam(FOnAddPet, const & )
     DECLARE_DELEGATE_OneParam(FOnDeletePet, const & )
-    DECLARE_DELEGATE_OneParam(FOnFindPetsByStatus, const TArray<Pet>& )
-    DECLARE_DELEGATE_OneParam(FOnFindPetsByTags, const TArray<Pet>& )
-    DECLARE_DELEGATE_OneParam(FOnGetPetById, const Pet& )
+    DECLARE_DELEGATE_OneParam(FOnFindPetsByStatus, const TArray<FPet>& )
+    DECLARE_DELEGATE_OneParam(FOnFindPetsByTags, const TArray<FPet>& )
+    DECLARE_DELEGATE_OneParam(FOnGetPetById, const FPet& )
     DECLARE_DELEGATE_OneParam(FOnUpdatePet, const & )
     DECLARE_DELEGATE_OneParam(FOnUpdatePetWithForm, const & )
-    DECLARE_DELEGATE_OneParam(FOnUploadFile, const ApiResponse& )
+    DECLARE_DELEGATE_OneParam(FOnUploadFile, const FApiResponse& )
    
     bool AddPet(
-        Pet Body
+        FFPet body
         , const FOnAddPet& SuccessDelegate = FOnAddPet()
     )
    
     bool DeletePet(
-        int64 PetId,
-        FString ApiKey
+        int64 petId,
+        FString apiKey
         , const FOnDeletePet& SuccessDelegate = FOnDeletePet()
     )
    
     bool FindPetsByStatus(
-        TArray&lt;FString&gt; Status
+        TArray&lt;FString&gt; status
         , const FOnFindPetsByStatus& SuccessDelegate = FOnFindPetsByStatus()
     )
    
     bool FindPetsByTags(
-        TArray&lt;FString&gt; Tags
+        TArray&lt;FString&gt; tags
         , const FOnFindPetsByTags& SuccessDelegate = FOnFindPetsByTags()
     )
    
     bool GetPetById(
-        int64 PetId
+        int64 petId
         , const FOnGetPetById& SuccessDelegate = FOnGetPetById()
     )
    
     bool UpdatePet(
-        Pet Body
+        FFPet body
         , const FOnUpdatePet& SuccessDelegate = FOnUpdatePet()
     )
    
     bool UpdatePetWithForm(
-        int64 PetId,
-        FString Name,
-        FString Status
+        int64 petId,
+        FString name,
+        FString status
         , const FOnUpdatePetWithForm& SuccessDelegate = FOnUpdatePetWithForm()
     )
    
     bool UploadFile(
-        int64 PetId,
-        FString AdditionalMetadata,
-        HttpContent File
+        int64 petId,
+        FString additionalMetadata,
+        HttpContent file
         , const FOnUploadFile& SuccessDelegate = FOnUploadFile()
     )
 

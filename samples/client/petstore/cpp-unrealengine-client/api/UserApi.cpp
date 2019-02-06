@@ -10,14 +10,14 @@
  */
 
 
-#include "UserApi.h"
+#include "FUserApi.h"
 
 namespace api {
 
 using namespace model;
 
 bool FUserApi::CreateUser(        
-        User Body
+        FFUser body
         , const FOnCreateUser& SuccessDelegate = FOnCreateUser()
 {
     FString VerbType = "POST";
@@ -25,24 +25,22 @@ bool FUserApi::CreateUser(
     bool bHasBodyParam = true;
     bool bHasQueryParams = false;
     bool bHasPathParams = false;
-
-    TPair<FString, FString> ContentType;
-    if(VerbType == "GET")
-    {
-    }
     
-        ContentType.Key = "content-type";
-        ContentType.Value = "application/json";
-    if(bHasQueryParams)
-    {
-    }
+    FString BasePath = /user;
+
+    
+    TPair<FString, FString> ContentType;
+    
+    ContentType.Key = "content-type";
+    ContentType.Value = "application/json";
+
     FString ApiPath = /user;
-    auto HttpRequest = PlayFabRequestHandler::SendRequest(ApiPath, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
+    CreateRequest(EVerbType::POST, BasePath, Headers, FHttpRequestCompleteDelegate());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FUserApi::OnCreateUser, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
 }
 bool FUserApi::CreateUsersWithArrayInput(        
-        TArray&lt;User&gt; Body
+        TArray&lt;FUser&gt; body
         , const FOnCreateUsersWithArrayInput& SuccessDelegate = FOnCreateUsersWithArrayInput()
 {
     FString VerbType = "POST";
@@ -50,24 +48,22 @@ bool FUserApi::CreateUsersWithArrayInput(
     bool bHasBodyParam = true;
     bool bHasQueryParams = false;
     bool bHasPathParams = false;
-
-    TPair<FString, FString> ContentType;
-    if(VerbType == "GET")
-    {
-    }
     
-            ContentType.Key = "content-type";
-            ContentType.Value = "application/json";
-    if(bHasQueryParams)
-    {
-    }
+    FString BasePath = /user/createWithArray;
+
+    
+    TPair<FString, FString> ContentType;
+    
+    ContentType.Key = "content-type";
+    ContentType.Value = "application/json";
+
     FString ApiPath = /user/createWithArray;
-    auto HttpRequest = PlayFabRequestHandler::SendRequest(ApiPath, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
+    CreateRequest(EVerbType::POST, BasePath, Headers, FHttpRequestCompleteDelegate());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FUserApi::OnCreateUsersWithArrayInput, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
 }
 bool FUserApi::CreateUsersWithListInput(        
-        TArray&lt;User&gt; Body
+        TArray&lt;FUser&gt; body
         , const FOnCreateUsersWithListInput& SuccessDelegate = FOnCreateUsersWithListInput()
 {
     FString VerbType = "POST";
@@ -75,24 +71,22 @@ bool FUserApi::CreateUsersWithListInput(
     bool bHasBodyParam = true;
     bool bHasQueryParams = false;
     bool bHasPathParams = false;
-
-    TPair<FString, FString> ContentType;
-    if(VerbType == "GET")
-    {
-    }
     
-            ContentType.Key = "content-type";
-            ContentType.Value = "application/json";
-    if(bHasQueryParams)
-    {
-    }
+    FString BasePath = /user/createWithList;
+
+    
+    TPair<FString, FString> ContentType;
+    
+    ContentType.Key = "content-type";
+    ContentType.Value = "application/json";
+
     FString ApiPath = /user/createWithList;
-    auto HttpRequest = PlayFabRequestHandler::SendRequest(ApiPath, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
+    CreateRequest(EVerbType::POST, BasePath, Headers, FHttpRequestCompleteDelegate());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FUserApi::OnCreateUsersWithListInput, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
 }
 bool FUserApi::DeleteUser(        
-        FString Username
+        FString username
         , const FOnDeleteUser& SuccessDelegate = FOnDeleteUser()
 {
     FString VerbType = "DELETE";
@@ -100,23 +94,23 @@ bool FUserApi::DeleteUser(
     bool bHasBodyParam = false;
     bool bHasQueryParams = false;
     bool bHasPathParams = true;
+    
+    FString BasePath = /user/{username};
 
+    
     TPair<FString, FString> ContentType;
-     Username
-    if(VerbType == "GET")
-    {
-        FString("{" + "Username" + "}")
-    }
-    if(bHasQueryParams)
-    {
-    }
+    TPair<FString, FString> Param;
+    Param.Key = FString("{" + "username" + "}");
+    Param.Value = username
+    ConstructPathParams(Param, /user/{username});
+
     FString ApiPath = /user/{username};
-    auto HttpRequest = PlayFabRequestHandler::SendRequest(ApiPath, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
+    CreateRequest(EVerbType::DELETE, BasePath, Headers, FHttpRequestCompleteDelegate());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FUserApi::OnDeleteUser, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
 }
 bool FUserApi::GetUserByName(        
-        FString Username
+        FString username
         , const FOnGetUserByName& SuccessDelegate = FOnGetUserByName()
 {
     FString VerbType = "GET";
@@ -124,24 +118,24 @@ bool FUserApi::GetUserByName(
     bool bHasBodyParam = false;
     bool bHasQueryParams = false;
     bool bHasPathParams = true;
+    
+    FString BasePath = /user/{username};
 
+    
     TPair<FString, FString> ContentType;
-     Username
-    if(VerbType == "GET")
-    {
-        FString("{" + "Username" + "}")
-    }
-    if(bHasQueryParams)
-    {
-    }
+    TPair<FString, FString> Param;
+    Param.Key = FString("{" + "username" + "}");
+    Param.Value = username
+    ConstructPathParams(Param, /user/{username});
+
     FString ApiPath = /user/{username};
-    auto HttpRequest = PlayFabRequestHandler::SendRequest(ApiPath, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
+    CreateRequest(EVerbType::GET, BasePath, Headers, FHttpRequestCompleteDelegate());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FUserApi::OnGetUserByName, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
 }
 bool FUserApi::LoginUser(        
-        FString Username,
-        FString Password
+        FString username,
+        FString password
         , const FOnLoginUser& SuccessDelegate = FOnLoginUser()
 {
     FString VerbType = "GET";
@@ -149,16 +143,32 @@ bool FUserApi::LoginUser(
     bool bHasBodyParam = false;
     bool bHasQueryParams = true;
     bool bHasPathParams = false;
+    
+    FString BasePath = /user/login;
 
+     TArray<TPair<FString,FString>> Params;
+    {
+        TPair<FString, TArray<FString>> statusParam;
+        statusParam.Key = username;
+        statusParam.Value.Add(username);
+        Params.Add(statusParam);
+    }
+    FString QueryParams = ConstructQueryParams(Params);
+    BasePath += QueryParams;
+     TArray<TPair<FString,FString>> Params;
+    {
+        TPair<FString, TArray<FString>> statusParam;
+        statusParam.Key = password;
+        statusParam.Value.Add(password);
+        Params.Add(statusParam);
+    }
+    FString QueryParams = ConstructQueryParams(Params);
+    BasePath += QueryParams;
+    
     TPair<FString, FString> ContentType;
-    if(VerbType == "GET")
-    {
-    }
-    if(bHasQueryParams)
-    {
-    }
+
     FString ApiPath = /user/login;
-    auto HttpRequest = PlayFabRequestHandler::SendRequest(ApiPath, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
+    CreateRequest(EVerbType::GET, BasePath, Headers, FHttpRequestCompleteDelegate());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FUserApi::OnLoginUser, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
 }
@@ -170,22 +180,20 @@ bool FUserApi::LogoutUser(
     bool bHasBodyParam = false;
     bool bHasQueryParams = false;
     bool bHasPathParams = false;
+    
+    FString BasePath = /user/logout;
 
+    
     TPair<FString, FString> ContentType;
-    if(VerbType == "GET")
-    {
-    }
-    if(bHasQueryParams)
-    {
-    }
+
     FString ApiPath = /user/logout;
-    auto HttpRequest = PlayFabRequestHandler::SendRequest(ApiPath, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
+    CreateRequest(EVerbType::GET, BasePath, Headers, FHttpRequestCompleteDelegate());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FUserApi::OnLogoutUser, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
 }
 bool FUserApi::UpdateUser(        
-        FString Username,
-        User Body
+        FString username,
+        FFUser body
         , const FOnUpdateUser& SuccessDelegate = FOnUpdateUser()
 {
     FString VerbType = "PUT";
@@ -193,21 +201,21 @@ bool FUserApi::UpdateUser(
     bool bHasBodyParam = true;
     bool bHasQueryParams = false;
     bool bHasPathParams = true;
-
-    TPair<FString, FString> ContentType;
-     Username
-    if(VerbType == "GET")
-    {
-        FString("{" + "Username" + "}")
-    }
     
-        ContentType.Key = "content-type";
-        ContentType.Value = "application/json";
-    if(bHasQueryParams)
-    {
-    }
+    FString BasePath = /user/{username};
+
+    
+    TPair<FString, FString> ContentType;
+    TPair<FString, FString> Param;
+    Param.Key = FString("{" + "username" + "}");
+    Param.Value = username
+    ConstructPathParams(Param, /user/{username});
+    
+    ContentType.Key = "content-type";
+    ContentType.Value = "application/json";
+
     FString ApiPath = /user/{username};
-    auto HttpRequest = PlayFabRequestHandler::SendRequest(ApiPath, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
+    CreateRequest(EVerbType::PUT, BasePath, Headers, FHttpRequestCompleteDelegate());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FUserApi::OnUpdateUser, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
 }
@@ -268,7 +276,7 @@ void FUserApi::OnGetUserByNameResult(FHttpRequestPtr HttpRequest
     FPlayFabCppError errorResult;
     ResponseStr = HttpResponse->GetContentAsString();
 
-    User OutResult;
+    FUser OutResult;
     TSharedPtr<FJsonObject> JsonObject;
     TSharedRef<TJsonReader<> > JsonReader = TJsonReaderFactory<>::Create(ResponseStr);
 

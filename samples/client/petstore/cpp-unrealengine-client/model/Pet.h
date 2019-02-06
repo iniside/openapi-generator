@@ -10,7 +10,7 @@
  */
 
 /*
- * Pet.h
+ * FPet.h
  *
  * A pet for sale in the pet store
  */
@@ -21,15 +21,15 @@
 
 #include "FString.h"
 #include "TArray.h"
-#include "Tag.h"
-#include "Category.h"
+#include "FTag.h"
+#include "FCategory.h"
 
 namespace model {
 
 /*
  * A pet for sale in the pet store
  */
-struct  FPet
+struct  FFPet
     : public FJsonSerializable
 {
 public:
@@ -39,17 +39,17 @@ public:
             JSON_SERIALIZE("Name", Name);
         JSON_SERIALIZE_ARRAY("PhotoUrls", PhotoUrls);
         
-       JSON_SERIALIZE_ARRAY_SERIALIZABLE("Tags", Tags, Tag); 
+       JSON_SERIALIZE_ARRAY_SERIALIZABLE("Tags", Tags, FTag); 
         
             JSON_SERIALIZE("Status", Status);
     END_JSON_SERIALIZER
 private:
      
     int64 Id;
-    Category Category;
+    FCategory Category;
     FString Name;
     TArray<FString> PhotoUrls;
-    TArray<Tag> Tags;
+    TArray<FTag> Tags;
     FString Status;
     
 };

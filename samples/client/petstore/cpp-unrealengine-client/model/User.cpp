@@ -11,11 +11,11 @@
 
 
 
-#include "User.h"
+#include "FUser.h"
 
 namespace model {
 
-User::User()
+FUser::FUser()
 {
     m_Id = 0L;
     m_IdIsSet = false;
@@ -35,16 +35,16 @@ User::User()
     m_UserStatusIsSet = false;
 }
 
-User::~User()
+FUser::~FUser()
 {
 }
 
-void User::validate()
+void FUser::validate()
 {
     // TODO: implement validation
 }
 
-web::json::value User::toJson() const
+web::json::value FUser::toJson() const
 {
     web::json::value val = web::json::value::object();
 
@@ -84,7 +84,7 @@ web::json::value User::toJson() const
     return val;
 }
 
-void User::fromJson(const web::json::value& val)
+void FUser::fromJson(const web::json::value& val)
 {
     if(val.has_field(utility::conversions::to_string_t("id")))
     {
@@ -152,7 +152,7 @@ void User::fromJson(const web::json::value& val)
     }
 }
 
-void User::toMultipart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& prefix) const
+void FUser::toMultipart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& prefix) const
 {
     utility::string_t namePrefix = prefix;
     if(namePrefix.size() > 0 && namePrefix.substr(namePrefix.size() - 1) != utility::conversions::to_string_t("."))
@@ -194,7 +194,7 @@ void User::toMultipart(std::shared_ptr<MultipartFormData> multipart, const utili
     }
 }
 
-void User::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& prefix)
+void FUser::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& prefix)
 {
     utility::string_t namePrefix = prefix;
     if(namePrefix.size() > 0 && namePrefix.substr(namePrefix.size() - 1) != utility::conversions::to_string_t("."))
@@ -236,170 +236,170 @@ void User::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const uti
     }
 }
 
-int64 User::getId() const
+int64 FUser::getId() const
 {
     return m_Id;
 }
 
-void User::setId(int64 value)
+void FUser::setId(int64 value)
 {
     m_Id = value;
     m_IdIsSet = true;
 }
 
-bool User::idIsSet() const
+bool FUser::idIsSet() const
 {
     return m_IdIsSet;
 }
 
-void User::unsetId()
+void FUser::unsetId()
 {
     m_IdIsSet = false;
 }
 
-FString User::getUsername() const
+FString FUser::getUsername() const
 {
     return m_Username;
 }
 
-void User::setUsername(const FString& value)
+void FUser::setUsername(const FString& value)
 {
     m_Username = value;
     m_UsernameIsSet = true;
 }
 
-bool User::usernameIsSet() const
+bool FUser::usernameIsSet() const
 {
     return m_UsernameIsSet;
 }
 
-void User::unsetUsername()
+void FUser::unsetUsername()
 {
     m_UsernameIsSet = false;
 }
 
-FString User::getFirstName() const
+FString FUser::getFirstName() const
 {
     return m_FirstName;
 }
 
-void User::setFirstName(const FString& value)
+void FUser::setFirstName(const FString& value)
 {
     m_FirstName = value;
     m_FirstNameIsSet = true;
 }
 
-bool User::firstNameIsSet() const
+bool FUser::firstNameIsSet() const
 {
     return m_FirstNameIsSet;
 }
 
-void User::unsetFirstName()
+void FUser::unsetFirstName()
 {
     m_FirstNameIsSet = false;
 }
 
-FString User::getLastName() const
+FString FUser::getLastName() const
 {
     return m_LastName;
 }
 
-void User::setLastName(const FString& value)
+void FUser::setLastName(const FString& value)
 {
     m_LastName = value;
     m_LastNameIsSet = true;
 }
 
-bool User::lastNameIsSet() const
+bool FUser::lastNameIsSet() const
 {
     return m_LastNameIsSet;
 }
 
-void User::unsetLastName()
+void FUser::unsetLastName()
 {
     m_LastNameIsSet = false;
 }
 
-FString User::getEmail() const
+FString FUser::getEmail() const
 {
     return m_Email;
 }
 
-void User::setEmail(const FString& value)
+void FUser::setEmail(const FString& value)
 {
     m_Email = value;
     m_EmailIsSet = true;
 }
 
-bool User::emailIsSet() const
+bool FUser::emailIsSet() const
 {
     return m_EmailIsSet;
 }
 
-void User::unsetEmail()
+void FUser::unsetEmail()
 {
     m_EmailIsSet = false;
 }
 
-FString User::getPassword() const
+FString FUser::getPassword() const
 {
     return m_Password;
 }
 
-void User::setPassword(const FString& value)
+void FUser::setPassword(const FString& value)
 {
     m_Password = value;
     m_PasswordIsSet = true;
 }
 
-bool User::passwordIsSet() const
+bool FUser::passwordIsSet() const
 {
     return m_PasswordIsSet;
 }
 
-void User::unsetPassword()
+void FUser::unsetPassword()
 {
     m_PasswordIsSet = false;
 }
 
-FString User::getPhone() const
+FString FUser::getPhone() const
 {
     return m_Phone;
 }
 
-void User::setPhone(const FString& value)
+void FUser::setPhone(const FString& value)
 {
     m_Phone = value;
     m_PhoneIsSet = true;
 }
 
-bool User::phoneIsSet() const
+bool FUser::phoneIsSet() const
 {
     return m_PhoneIsSet;
 }
 
-void User::unsetPhone()
+void FUser::unsetPhone()
 {
     m_PhoneIsSet = false;
 }
 
-int32 User::getUserStatus() const
+int32 FUser::getUserStatus() const
 {
     return m_UserStatus;
 }
 
-void User::setUserStatus(int32 value)
+void FUser::setUserStatus(int32 value)
 {
     m_UserStatus = value;
     m_UserStatusIsSet = true;
 }
 
-bool User::userStatusIsSet() const
+bool FUser::userStatusIsSet() const
 {
     return m_UserStatusIsSet;
 }
 
-void User::unsetUserStatus()
+void FUser::unsetUserStatus()
 {
     m_UserStatusIsSet = false;
 }

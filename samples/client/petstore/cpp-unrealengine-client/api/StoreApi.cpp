@@ -10,14 +10,14 @@
  */
 
 
-#include "StoreApi.h"
+#include "FStoreApi.h"
 
 namespace api {
 
 using namespace model;
 
 bool FStoreApi::DeleteOrder(        
-        FString OrderId
+        FString orderId
         , const FOnDeleteOrder& SuccessDelegate = FOnDeleteOrder()
 {
     FString VerbType = "DELETE";
@@ -25,18 +25,18 @@ bool FStoreApi::DeleteOrder(
     bool bHasBodyParam = false;
     bool bHasQueryParams = false;
     bool bHasPathParams = true;
+    
+    FString BasePath = /store/order/{orderId};
 
+    
     TPair<FString, FString> ContentType;
-     OrderId
-    if(VerbType == "GET")
-    {
-        FString("{" + "OrderId" + "}")
-    }
-    if(bHasQueryParams)
-    {
-    }
+    TPair<FString, FString> Param;
+    Param.Key = FString("{" + "orderId" + "}");
+    Param.Value = orderId
+    ConstructPathParams(Param, /store/order/{orderId});
+
     FString ApiPath = /store/order/{orderId};
-    auto HttpRequest = PlayFabRequestHandler::SendRequest(ApiPath, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
+    CreateRequest(EVerbType::DELETE, BasePath, Headers, FHttpRequestCompleteDelegate());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FStoreApi::OnDeleteOrder, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
 }
@@ -48,21 +48,19 @@ bool FStoreApi::GetInventory(
     bool bHasBodyParam = false;
     bool bHasQueryParams = false;
     bool bHasPathParams = false;
+    
+    FString BasePath = /store/inventory;
 
+    
     TPair<FString, FString> ContentType;
-    if(VerbType == "GET")
-    {
-    }
-    if(bHasQueryParams)
-    {
-    }
+
     FString ApiPath = /store/inventory;
-    auto HttpRequest = PlayFabRequestHandler::SendRequest(ApiPath, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
+    CreateRequest(EVerbType::GET, BasePath, Headers, FHttpRequestCompleteDelegate());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FStoreApi::OnGetInventory, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
 }
 bool FStoreApi::GetOrderById(        
-        int64 OrderId
+        int64 orderId
         , const FOnGetOrderById& SuccessDelegate = FOnGetOrderById()
 {
     FString VerbType = "GET";
@@ -70,23 +68,23 @@ bool FStoreApi::GetOrderById(
     bool bHasBodyParam = false;
     bool bHasQueryParams = false;
     bool bHasPathParams = true;
+    
+    FString BasePath = /store/order/{orderId};
 
+    
     TPair<FString, FString> ContentType;
-     OrderId
-    if(VerbType == "GET")
-    {
-        FString("{" + "OrderId" + "}")
-    }
-    if(bHasQueryParams)
-    {
-    }
+    TPair<FString, int64> Param;
+    Param.Key = FString("{" + "orderId" + "}");
+    Param.Value = orderId
+    ConstructPathParams(Param, /store/order/{orderId});
+
     FString ApiPath = /store/order/{orderId};
-    auto HttpRequest = PlayFabRequestHandler::SendRequest(ApiPath, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
+    CreateRequest(EVerbType::GET, BasePath, Headers, FHttpRequestCompleteDelegate());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FStoreApi::OnGetOrderById, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
 }
 bool FStoreApi::PlaceOrder(        
-        Order Body
+        FFOrder body
         , const FOnPlaceOrder& SuccessDelegate = FOnPlaceOrder()
 {
     FString VerbType = "POST";
@@ -94,19 +92,17 @@ bool FStoreApi::PlaceOrder(
     bool bHasBodyParam = true;
     bool bHasQueryParams = false;
     bool bHasPathParams = false;
-
-    TPair<FString, FString> ContentType;
-    if(VerbType == "GET")
-    {
-    }
     
-        ContentType.Key = "content-type";
-        ContentType.Value = "application/json";
-    if(bHasQueryParams)
-    {
-    }
+    FString BasePath = /store/order;
+
+    
+    TPair<FString, FString> ContentType;
+    
+    ContentType.Key = "content-type";
+    ContentType.Value = "application/json";
+
     FString ApiPath = /store/order;
-    auto HttpRequest = PlayFabRequestHandler::SendRequest(ApiPath, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
+    CreateRequest(EVerbType::POST, BasePath, Headers, FHttpRequestCompleteDelegate());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FStoreApi::OnPlaceOrder, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
 }
@@ -159,7 +155,7 @@ void FStoreApi::OnGetOrderByIdResult(FHttpRequestPtr HttpRequest
     FPlayFabCppError errorResult;
     ResponseStr = HttpResponse->GetContentAsString();
 
-    Order OutResult;
+    FOrder OutResult;
     TSharedPtr<FJsonObject> JsonObject;
     TSharedRef<TJsonReader<> > JsonReader = TJsonReaderFactory<>::Create(ResponseStr);
 
@@ -187,7 +183,7 @@ void FStoreApi::OnPlaceOrderResult(FHttpRequestPtr HttpRequest
     FPlayFabCppError errorResult;
     ResponseStr = HttpResponse->GetContentAsString();
 
-    Order OutResult;
+    FOrder OutResult;
     TSharedPtr<FJsonObject> JsonObject;
     TSharedRef<TJsonReader<> > JsonReader = TJsonReaderFactory<>::Create(ResponseStr);
 

@@ -10,7 +10,7 @@ namespace {{this}} {
 using namespace {{modelNamespace}};
 
 {{#operation}}
-bool F{{classname}}::{{operationId}}(        
+bool {{classname}}::{{operationId}}(        
         {{#allParams}}
         {{dataType}} {{paramName}}{{#hasMore}},{{/hasMore}}
         {{/allParams}}
@@ -21,73 +21,67 @@ bool F{{classname}}::{{operationId}}(
     bool bHasBodyParam = {{hasBodyParam}};
     bool bHasQueryParams = {{hasQueryParams}};
     bool bHasPathParams = {{hasPathParams}};
+    
+    FString BasePath = {{path}};
 
+    {{#queryParams}}
+     TArray<TPair<FString,{{dataType}}>> Params;
+    {{#isListContainer}}
+   
+	{
+        TPair<FString,{{dataType}}> statusParam;
+	    statusParam.Key = "{{baseName}}";
+	    for({{baseType}} p : {{paramName}})
+        {
+            statusParam.Value.Add(p);
+        }
+        Params.Add(statusParam);
+    }
+    {{/isListContainer}}
+    {{^isListContainer}}
+    {
+        TPair<FString, TArray<{{dataType}}>> statusParam;
+        statusParam.Key = {{baseName}};
+        statusParam.Value.Add({{baseName}});
+        Params.Add(statusParam);
+    }
+    {{/isListContainer}}
+    FString QueryParams = ConstructQueryParams(Params);
+    BasePath += QueryParams;
+    {{/queryParams}}
+    
     TPair<FString, FString> ContentType;
     {{#pathParams}}
-    {{datatype}} {{paramName}}
+    TPair<FString, {{dataType}}> Param;
+    Param.Key = FString("{" + "{{paramName}}" + "}");
+    Param.Value = {{paramName}}
+    ConstructPathParams(Param, {{path}});
     {{/pathParams}}
-    if(VerbType == "GET")
-    {
-        {{#pathParams}}
-        FString("{" + "{{paramName}}" + "}")
-        {{/pathParams}}
-    }
     {{#bodyParams}}
     
     {{#isListContainer}}
         {{#items}}
             {{#isModel}}
-            ContentType.Key = "content-type";
-            ContentType.Value = "application/json";
+    ContentType.Key = "content-type";
+    ContentType.Value = "application/json";
             {{/isModel}}
         {{/items}}
     {{/isListContainer}}
     {{#isModel}}
-        ContentType.Key = "content-type";
-        ContentType.Value = "application/json";
+    ContentType.Key = "content-type";
+    ContentType.Value = "application/json";
     {{/isModel}}
     {{/bodyParams}}
-    if(bHasQueryParams)
-    {
-        {{#queryParams}}
-        {{#isListContainer}}
-        FString Params = "?";
-        TArray<TPair<FString, {{datatype}}>> GetParams;
-		TPair<FString, {{datatype}}> statusParam;
-		statusParam.Key = {{basename}};
-		for({{dataType}} p : {{paramName}})
-        {
-            statusParam.Add(p);
-        }
-		GetParams.Add(statusParam);
-		//Params += "?status=" + Pending;
-		for (int32 ParamIdx = 0; ParamIdx < GetParams.Num(); ParamIdx++)
-		{
-			for (int32 ValueIdx = 0; ValueIdx < GetParams[ParamIdx].Value.Num(); ValueIdx++)
-			{
-				Params += GetParams[ParamIdx].Key + "=" + GetParams[ParamIdx].Value[ValueIdx];
-				if (ValueIdx < GetParams[ParamIdx].Value.Num() - 1)
-				{
-					Params += "&";
-				}
-			}
-			if (ParamIdx < GetParams.Num() - 1)
-			{
-				Params += "&";
-			}
-		}
-        {{/isListContainer}}
-        {{/queryParams}}
-    }
+
     FString ApiPath = {{path}};
-    auto HttpRequest = PlayFabRequestHandler::SendRequest(ApiPath, request.toJSONString(), TEXT("X-SecretKey"), PlayFabSettings::GetDeveloperSecretKey());
-    HttpRequest->OnProcessRequestComplete().BindRaw(this, &F{{classname}}::On{{operationId}}, SuccessDelegate, ErrorDelegate);
+    CreateRequest(EVerbType::{{httpMethod}}, BasePath, Headers, FHttpRequestCompleteDelegate());
+    HttpRequest->OnProcessRequestComplete().BindRaw(this, &{{classname}}::On{{operationId}}, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
 }
 {{/operation}}
 
 {{#operation}}
-void F{{classname}}::On{{operationId}}Result(FHttpRequestPtr HttpRequest
+void {{classname}}::On{{operationId}}Result(FHttpRequestPtr HttpRequest
         , FHttpResponsePtr HttpResponse
         , bool bSucceeded, FOn{{operationId}} SuccessDelegate
         , FPlayFabErrorDelegate ErrorDelegate)

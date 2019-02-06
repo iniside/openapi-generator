@@ -11,11 +11,11 @@
 
 
 
-#include "Category.h"
+#include "FCategory.h"
 
 namespace model {
 
-Category::Category()
+FCategory::FCategory()
 {
     m_Id = 0L;
     m_IdIsSet = false;
@@ -23,16 +23,16 @@ Category::Category()
     m_NameIsSet = false;
 }
 
-Category::~Category()
+FCategory::~FCategory()
 {
 }
 
-void Category::validate()
+void FCategory::validate()
 {
     // TODO: implement validation
 }
 
-web::json::value Category::toJson() const
+web::json::value FCategory::toJson() const
 {
     web::json::value val = web::json::value::object();
 
@@ -48,7 +48,7 @@ web::json::value Category::toJson() const
     return val;
 }
 
-void Category::fromJson(const web::json::value& val)
+void FCategory::fromJson(const web::json::value& val)
 {
     if(val.has_field(utility::conversions::to_string_t("id")))
     {
@@ -68,7 +68,7 @@ void Category::fromJson(const web::json::value& val)
     }
 }
 
-void Category::toMultipart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& prefix) const
+void FCategory::toMultipart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& prefix) const
 {
     utility::string_t namePrefix = prefix;
     if(namePrefix.size() > 0 && namePrefix.substr(namePrefix.size() - 1) != utility::conversions::to_string_t("."))
@@ -86,7 +86,7 @@ void Category::toMultipart(std::shared_ptr<MultipartFormData> multipart, const u
     }
 }
 
-void Category::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& prefix)
+void FCategory::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& prefix)
 {
     utility::string_t namePrefix = prefix;
     if(namePrefix.size() > 0 && namePrefix.substr(namePrefix.size() - 1) != utility::conversions::to_string_t("."))
@@ -104,44 +104,44 @@ void Category::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const
     }
 }
 
-int64 Category::getId() const
+int64 FCategory::getId() const
 {
     return m_Id;
 }
 
-void Category::setId(int64 value)
+void FCategory::setId(int64 value)
 {
     m_Id = value;
     m_IdIsSet = true;
 }
 
-bool Category::idIsSet() const
+bool FCategory::idIsSet() const
 {
     return m_IdIsSet;
 }
 
-void Category::unsetId()
+void FCategory::unsetId()
 {
     m_IdIsSet = false;
 }
 
-FString Category::getName() const
+FString FCategory::getName() const
 {
     return m_Name;
 }
 
-void Category::setName(const FString& value)
+void FCategory::setName(const FString& value)
 {
     m_Name = value;
     m_NameIsSet = true;
 }
 
-bool Category::nameIsSet() const
+bool FCategory::nameIsSet() const
 {
     return m_NameIsSet;
 }
 
-void Category::unsetName()
+void FCategory::unsetName()
 {
     m_NameIsSet = false;
 }

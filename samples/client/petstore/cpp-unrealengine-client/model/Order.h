@@ -10,7 +10,7 @@
  */
 
 /*
- * Order.h
+ * FOrder.h
  *
  * An order for a pets from the pet store
  */
@@ -27,7 +27,7 @@ namespace model {
 /*
  * An order for a pets from the pet store
  */
-struct  FOrder
+struct  FFOrder
     : public FJsonSerializable
 {
 public:

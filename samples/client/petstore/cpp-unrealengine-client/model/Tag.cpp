@@ -11,11 +11,11 @@
 
 
 
-#include "Tag.h"
+#include "FTag.h"
 
 namespace model {
 
-Tag::Tag()
+FTag::FTag()
 {
     m_Id = 0L;
     m_IdIsSet = false;
@@ -23,16 +23,16 @@ Tag::Tag()
     m_NameIsSet = false;
 }
 
-Tag::~Tag()
+FTag::~FTag()
 {
 }
 
-void Tag::validate()
+void FTag::validate()
 {
     // TODO: implement validation
 }
 
-web::json::value Tag::toJson() const
+web::json::value FTag::toJson() const
 {
     web::json::value val = web::json::value::object();
 
@@ -48,7 +48,7 @@ web::json::value Tag::toJson() const
     return val;
 }
 
-void Tag::fromJson(const web::json::value& val)
+void FTag::fromJson(const web::json::value& val)
 {
     if(val.has_field(utility::conversions::to_string_t("id")))
     {
@@ -68,7 +68,7 @@ void Tag::fromJson(const web::json::value& val)
     }
 }
 
-void Tag::toMultipart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& prefix) const
+void FTag::toMultipart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& prefix) const
 {
     utility::string_t namePrefix = prefix;
     if(namePrefix.size() > 0 && namePrefix.substr(namePrefix.size() - 1) != utility::conversions::to_string_t("."))
@@ -86,7 +86,7 @@ void Tag::toMultipart(std::shared_ptr<MultipartFormData> multipart, const utilit
     }
 }
 
-void Tag::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& prefix)
+void FTag::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& prefix)
 {
     utility::string_t namePrefix = prefix;
     if(namePrefix.size() > 0 && namePrefix.substr(namePrefix.size() - 1) != utility::conversions::to_string_t("."))
@@ -104,44 +104,44 @@ void Tag::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const util
     }
 }
 
-int64 Tag::getId() const
+int64 FTag::getId() const
 {
     return m_Id;
 }
 
-void Tag::setId(int64 value)
+void FTag::setId(int64 value)
 {
     m_Id = value;
     m_IdIsSet = true;
 }
 
-bool Tag::idIsSet() const
+bool FTag::idIsSet() const
 {
     return m_IdIsSet;
 }
 
-void Tag::unsetId()
+void FTag::unsetId()
 {
     m_IdIsSet = false;
 }
 
-FString Tag::getName() const
+FString FTag::getName() const
 {
     return m_Name;
 }
 
-void Tag::setName(const FString& value)
+void FTag::setName(const FString& value)
 {
     m_Name = value;
     m_NameIsSet = true;
 }
 
-bool Tag::nameIsSet() const
+bool FTag::nameIsSet() const
 {
     return m_NameIsSet;
 }
 
-void Tag::unsetName()
+void FTag::unsetName()
 {
     m_NameIsSet = false;
 }

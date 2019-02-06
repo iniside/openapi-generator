@@ -10,7 +10,7 @@
  */
 
 /*
- * User.h
+ * FUser.h
  *
  * A User who is purchasing from the pet store
  */
@@ -26,7 +26,7 @@ namespace model {
 /*
  * A User who is purchasing from the pet store
  */
-struct  FUser
+struct  FFUser
     : public FJsonSerializable
 {
 public:
