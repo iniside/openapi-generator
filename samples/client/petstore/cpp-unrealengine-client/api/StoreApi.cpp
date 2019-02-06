@@ -27,15 +27,23 @@ bool FStoreApi::DeleteOrder(
     bool bHasPathParams = true;
     
     FString BasePath = /store/order/{orderId};
+    
+    
+
+	TPair<FString, FString> AccetpType;
+    //defaults
+	AccetpType.Key = "accept";
+	AccetpType.Value = "application/json";
+	TArray<TPair<FString, FString>> Headers;
+	Headers.Add(AccetpType);
 
     
     TPair<FString, FString> ContentType;
     TPair<FString, FString> Param;
     Param.Key = FString("{" + "orderId" + "}");
     Param.Value = orderId
-    ConstructPathParams(Param, /store/order/{orderId});
+    ConstructPathParams(Param, BasePath);
 
-    FString ApiPath = /store/order/{orderId};
     CreateRequest(EVerbType::DELETE, BasePath, Headers, FHttpRequestCompleteDelegate());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FStoreApi::OnDeleteOrder, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
@@ -50,11 +58,19 @@ bool FStoreApi::GetInventory(
     bool bHasPathParams = false;
     
     FString BasePath = /store/inventory;
+    
+    
+
+	TPair<FString, FString> AccetpType;
+    //defaults
+	AccetpType.Key = "accept";
+	AccetpType.Value = "application/json";
+	TArray<TPair<FString, FString>> Headers;
+	Headers.Add(AccetpType);
 
     
     TPair<FString, FString> ContentType;
 
-    FString ApiPath = /store/inventory;
     CreateRequest(EVerbType::GET, BasePath, Headers, FHttpRequestCompleteDelegate());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FStoreApi::OnGetInventory, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
@@ -70,15 +86,23 @@ bool FStoreApi::GetOrderById(
     bool bHasPathParams = true;
     
     FString BasePath = /store/order/{orderId};
+    
+    
+
+	TPair<FString, FString> AccetpType;
+    //defaults
+	AccetpType.Key = "accept";
+	AccetpType.Value = "application/json";
+	TArray<TPair<FString, FString>> Headers;
+	Headers.Add(AccetpType);
 
     
     TPair<FString, FString> ContentType;
     TPair<FString, int64> Param;
     Param.Key = FString("{" + "orderId" + "}");
     Param.Value = orderId
-    ConstructPathParams(Param, /store/order/{orderId});
+    ConstructPathParams(Param, BasePath);
 
-    FString ApiPath = /store/order/{orderId};
     CreateRequest(EVerbType::GET, BasePath, Headers, FHttpRequestCompleteDelegate());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FStoreApi::OnGetOrderById, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
@@ -94,6 +118,15 @@ bool FStoreApi::PlaceOrder(
     bool bHasPathParams = false;
     
     FString BasePath = /store/order;
+    
+    
+
+	TPair<FString, FString> AccetpType;
+    //defaults
+	AccetpType.Key = "accept";
+	AccetpType.Value = "application/json";
+	TArray<TPair<FString, FString>> Headers;
+	Headers.Add(AccetpType);
 
     
     TPair<FString, FString> ContentType;
@@ -101,7 +134,6 @@ bool FStoreApi::PlaceOrder(
     ContentType.Key = "content-type";
     ContentType.Value = "application/json";
 
-    FString ApiPath = /store/order;
     CreateRequest(EVerbType::POST, BasePath, Headers, FHttpRequestCompleteDelegate());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &FStoreApi::OnPlaceOrder, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();

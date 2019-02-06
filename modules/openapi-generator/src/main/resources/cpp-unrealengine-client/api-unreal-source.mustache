@@ -23,6 +23,21 @@ bool {{classname}}::{{operationId}}(
     bool bHasPathParams = {{hasPathParams}};
     
     FString BasePath = {{path}};
+    
+    
+
+	TPair<FString, FString> AccetpType;
+    //defaults
+	AccetpType.Key = "accept";
+	AccetpType.Value = "application/json";
+	TArray<TPair<FString, FString>> Headers;
+	Headers.Add(AccetpType);
+    {{#consumes}}
+    TPair<FString, FString> ContentType;
+	ContentType.Key = "ContentType";
+	ContentType.Value = "{{mediaType}}";
+    Headers.Add(ContentType);
+    {{/consumes}}
 
     {{#queryParams}}
      TArray<TPair<FString,{{dataType}}>> Params;
@@ -55,7 +70,7 @@ bool {{classname}}::{{operationId}}(
     TPair<FString, {{dataType}}> Param;
     Param.Key = FString("{" + "{{paramName}}" + "}");
     Param.Value = {{paramName}}
-    ConstructPathParams(Param, {{path}});
+    ConstructPathParams(Param, BasePath);
     {{/pathParams}}
     {{#bodyParams}}
     
@@ -73,7 +88,6 @@ bool {{classname}}::{{operationId}}(
     {{/isModel}}
     {{/bodyParams}}
 
-    FString ApiPath = {{path}};
     CreateRequest(EVerbType::{{httpMethod}}, BasePath, Headers, FHttpRequestCompleteDelegate());
     HttpRequest->OnProcessRequestComplete().BindRaw(this, &{{classname}}::On{{operationId}}, SuccessDelegate, ErrorDelegate);
     return HttpRequest->ProcessRequest();
