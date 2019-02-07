@@ -27,24 +27,21 @@ bool FUserApi::CreateUser(
     bool bHasPathParams = false;
     
     FString BasePath = /user;
-    
-    
-
 	TPair<FString, FString> AccetpType;
     //defaults
 	AccetpType.Key = "accept";
 	AccetpType.Value = "application/json";
 	TArray<TPair<FString, FString>> Headers;
 	Headers.Add(AccetpType);
-
-    
+    //if model params, assume it must be json in unreal.
     TPair<FString, FString> ContentType;
-    
     ContentType.Key = "content-type";
     ContentType.Value = "application/json";
+    Headers.Add(ContentType);
 
-    CreateRequest(EVerbType::POST, BasePath, Headers, FHttpRequestCompleteDelegate());
-    HttpRequest->OnProcessRequestComplete().BindRaw(this, &FUserApi::OnCreateUser, SuccessDelegate, ErrorDelegate);
+    
+    CreateRequest(EVerbType::POST, BasePath, Headers, FHttpRequestCompleteDelegate::CreateRaw(this, &FUserApi::OnCreateUser));
+    
     return HttpRequest->ProcessRequest();
 }
 bool FUserApi::CreateUsersWithArrayInput(        
@@ -58,24 +55,21 @@ bool FUserApi::CreateUsersWithArrayInput(
     bool bHasPathParams = false;
     
     FString BasePath = /user/createWithArray;
-    
-    
-
 	TPair<FString, FString> AccetpType;
     //defaults
 	AccetpType.Key = "accept";
 	AccetpType.Value = "application/json";
 	TArray<TPair<FString, FString>> Headers;
 	Headers.Add(AccetpType);
-
-    
+    //if model params, assume it must be json in unreal.
     TPair<FString, FString> ContentType;
-    
     ContentType.Key = "content-type";
     ContentType.Value = "application/json";
+    Headers.Add(ContentType);
 
-    CreateRequest(EVerbType::POST, BasePath, Headers, FHttpRequestCompleteDelegate());
-    HttpRequest->OnProcessRequestComplete().BindRaw(this, &FUserApi::OnCreateUsersWithArrayInput, SuccessDelegate, ErrorDelegate);
+    
+    CreateRequest(EVerbType::POST, BasePath, Headers, FHttpRequestCompleteDelegate::CreateRaw(this, &FUserApi::OnCreateUsersWithArrayInput));
+    
     return HttpRequest->ProcessRequest();
 }
 bool FUserApi::CreateUsersWithListInput(        
@@ -89,24 +83,21 @@ bool FUserApi::CreateUsersWithListInput(
     bool bHasPathParams = false;
     
     FString BasePath = /user/createWithList;
-    
-    
-
 	TPair<FString, FString> AccetpType;
     //defaults
 	AccetpType.Key = "accept";
 	AccetpType.Value = "application/json";
 	TArray<TPair<FString, FString>> Headers;
 	Headers.Add(AccetpType);
-
-    
+    //if model params, assume it must be json in unreal.
     TPair<FString, FString> ContentType;
-    
     ContentType.Key = "content-type";
     ContentType.Value = "application/json";
+    Headers.Add(ContentType);
 
-    CreateRequest(EVerbType::POST, BasePath, Headers, FHttpRequestCompleteDelegate());
-    HttpRequest->OnProcessRequestComplete().BindRaw(this, &FUserApi::OnCreateUsersWithListInput, SuccessDelegate, ErrorDelegate);
+    
+    CreateRequest(EVerbType::POST, BasePath, Headers, FHttpRequestCompleteDelegate::CreateRaw(this, &FUserApi::OnCreateUsersWithListInput));
+    
     return HttpRequest->ProcessRequest();
 }
 bool FUserApi::DeleteUser(        
@@ -120,25 +111,21 @@ bool FUserApi::DeleteUser(
     bool bHasPathParams = true;
     
     FString BasePath = /user/{username};
-    
-    
-
 	TPair<FString, FString> AccetpType;
     //defaults
 	AccetpType.Key = "accept";
 	AccetpType.Value = "application/json";
 	TArray<TPair<FString, FString>> Headers;
 	Headers.Add(AccetpType);
-
-    
-    TPair<FString, FString> ContentType;
+    //if model params, assume it must be json in unreal.
     TPair<FString, FString> Param;
     Param.Key = FString("{" + "username" + "}");
     Param.Value = username
     ConstructPathParams(Param, BasePath);
 
-    CreateRequest(EVerbType::DELETE, BasePath, Headers, FHttpRequestCompleteDelegate());
-    HttpRequest->OnProcessRequestComplete().BindRaw(this, &FUserApi::OnDeleteUser, SuccessDelegate, ErrorDelegate);
+    
+    CreateRequest(EVerbType::DELETE, BasePath, Headers, FHttpRequestCompleteDelegate::CreateRaw(this, &FUserApi::OnDeleteUser));
+    
     return HttpRequest->ProcessRequest();
 }
 bool FUserApi::GetUserByName(        
@@ -152,25 +139,21 @@ bool FUserApi::GetUserByName(
     bool bHasPathParams = true;
     
     FString BasePath = /user/{username};
-    
-    
-
 	TPair<FString, FString> AccetpType;
     //defaults
 	AccetpType.Key = "accept";
 	AccetpType.Value = "application/json";
 	TArray<TPair<FString, FString>> Headers;
 	Headers.Add(AccetpType);
-
-    
-    TPair<FString, FString> ContentType;
+    //if model params, assume it must be json in unreal.
     TPair<FString, FString> Param;
     Param.Key = FString("{" + "username" + "}");
     Param.Value = username
     ConstructPathParams(Param, BasePath);
 
-    CreateRequest(EVerbType::GET, BasePath, Headers, FHttpRequestCompleteDelegate());
-    HttpRequest->OnProcessRequestComplete().BindRaw(this, &FUserApi::OnGetUserByName, SuccessDelegate, ErrorDelegate);
+    
+    CreateRequest(EVerbType::GET, BasePath, Headers, FHttpRequestCompleteDelegate::CreateRaw(this, &FUserApi::OnGetUserByName));
+    
     return HttpRequest->ProcessRequest();
 }
 bool FUserApi::LoginUser(        
@@ -185,16 +168,13 @@ bool FUserApi::LoginUser(
     bool bHasPathParams = false;
     
     FString BasePath = /user/login;
-    
-    
-
 	TPair<FString, FString> AccetpType;
     //defaults
 	AccetpType.Key = "accept";
 	AccetpType.Value = "application/json";
 	TArray<TPair<FString, FString>> Headers;
 	Headers.Add(AccetpType);
-
+    //if model params, assume it must be json in unreal.
      TArray<TPair<FString,FString>> Params;
     {
         TPair<FString, TArray<FString>> statusParam;
@@ -213,11 +193,10 @@ bool FUserApi::LoginUser(
     }
     FString QueryParams = ConstructQueryParams(Params);
     BasePath += QueryParams;
-    
-    TPair<FString, FString> ContentType;
 
-    CreateRequest(EVerbType::GET, BasePath, Headers, FHttpRequestCompleteDelegate());
-    HttpRequest->OnProcessRequestComplete().BindRaw(this, &FUserApi::OnLoginUser, SuccessDelegate, ErrorDelegate);
+    
+    CreateRequest(EVerbType::GET, BasePath, Headers, FHttpRequestCompleteDelegate::CreateRaw(this, &FUserApi::OnLoginUser));
+    
     return HttpRequest->ProcessRequest();
 }
 bool FUserApi::LogoutUser(        
@@ -230,21 +209,17 @@ bool FUserApi::LogoutUser(
     bool bHasPathParams = false;
     
     FString BasePath = /user/logout;
-    
-    
-
 	TPair<FString, FString> AccetpType;
     //defaults
 	AccetpType.Key = "accept";
 	AccetpType.Value = "application/json";
 	TArray<TPair<FString, FString>> Headers;
 	Headers.Add(AccetpType);
+    //if model params, assume it must be json in unreal.
 
     
-    TPair<FString, FString> ContentType;
-
-    CreateRequest(EVerbType::GET, BasePath, Headers, FHttpRequestCompleteDelegate());
-    HttpRequest->OnProcessRequestComplete().BindRaw(this, &FUserApi::OnLogoutUser, SuccessDelegate, ErrorDelegate);
+    CreateRequest(EVerbType::GET, BasePath, Headers, FHttpRequestCompleteDelegate::CreateRaw(this, &FUserApi::OnLogoutUser));
+    
     return HttpRequest->ProcessRequest();
 }
 bool FUserApi::UpdateUser(        
@@ -259,28 +234,25 @@ bool FUserApi::UpdateUser(
     bool bHasPathParams = true;
     
     FString BasePath = /user/{username};
-    
-    
-
 	TPair<FString, FString> AccetpType;
     //defaults
 	AccetpType.Key = "accept";
 	AccetpType.Value = "application/json";
 	TArray<TPair<FString, FString>> Headers;
 	Headers.Add(AccetpType);
-
-    
+    //if model params, assume it must be json in unreal.
     TPair<FString, FString> ContentType;
+    ContentType.Key = "content-type";
+    ContentType.Value = "application/json";
+    Headers.Add(ContentType);
     TPair<FString, FString> Param;
     Param.Key = FString("{" + "username" + "}");
     Param.Value = username
     ConstructPathParams(Param, BasePath);
-    
-    ContentType.Key = "content-type";
-    ContentType.Value = "application/json";
 
-    CreateRequest(EVerbType::PUT, BasePath, Headers, FHttpRequestCompleteDelegate());
-    HttpRequest->OnProcessRequestComplete().BindRaw(this, &FUserApi::OnUpdateUser, SuccessDelegate, ErrorDelegate);
+    
+    CreateRequest(EVerbType::PUT, BasePath, Headers, FHttpRequestCompleteDelegate::CreateRaw(this, &FUserApi::OnUpdateUser));
+    
     return HttpRequest->ProcessRequest();
 }
 

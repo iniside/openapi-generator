@@ -23,22 +23,33 @@ bool {{classname}}::{{operationId}}(
     bool bHasPathParams = {{hasPathParams}};
     
     FString BasePath = {{path}};
-    
-    
-
 	TPair<FString, FString> AccetpType;
     //defaults
 	AccetpType.Key = "accept";
 	AccetpType.Value = "application/json";
 	TArray<TPair<FString, FString>> Headers;
 	Headers.Add(AccetpType);
-    {{#consumes}}
+    
+    {{#bodyParams}}
+    {{#isListContainer}}
+        {{#items}}
+            {{#isModel}}
+    //if model params, assume it must be json in unreal.
     TPair<FString, FString> ContentType;
-	ContentType.Key = "ContentType";
-	ContentType.Value = "{{mediaType}}";
+    ContentType.Key = "content-type";
+    ContentType.Value = "application/json";
     Headers.Add(ContentType);
-    {{/consumes}}
-
+            {{/isModel}}
+        {{/items}}
+    {{/isListContainer}}
+    {{#isModel}}
+    //if model params, assume it must be json in unreal.
+    TPair<FString, FString> ContentType;
+    ContentType.Key = "content-type";
+    ContentType.Value = "application/json";
+    Headers.Add(ContentType);
+    {{/isModel}}
+    {{/bodyParams}}
     {{#queryParams}}
      TArray<TPair<FString,{{dataType}}>> Params;
     {{#isListContainer}}
@@ -64,32 +75,16 @@ bool {{classname}}::{{operationId}}(
     FString QueryParams = ConstructQueryParams(Params);
     BasePath += QueryParams;
     {{/queryParams}}
-    
-    TPair<FString, FString> ContentType;
     {{#pathParams}}
     TPair<FString, {{dataType}}> Param;
     Param.Key = FString("{" + "{{paramName}}" + "}");
     Param.Value = {{paramName}}
     ConstructPathParams(Param, BasePath);
     {{/pathParams}}
-    {{#bodyParams}}
-    
-    {{#isListContainer}}
-        {{#items}}
-            {{#isModel}}
-    ContentType.Key = "content-type";
-    ContentType.Value = "application/json";
-            {{/isModel}}
-        {{/items}}
-    {{/isListContainer}}
-    {{#isModel}}
-    ContentType.Key = "content-type";
-    ContentType.Value = "application/json";
-    {{/isModel}}
-    {{/bodyParams}}
 
-    CreateRequest(EVerbType::{{httpMethod}}, BasePath, Headers, FHttpRequestCompleteDelegate());
-    HttpRequest->OnProcessRequestComplete().BindRaw(this, &{{classname}}::On{{operationId}}, SuccessDelegate, ErrorDelegate);
+    
+    CreateRequest(EVerbType::{{httpMethod}}, BasePath, Headers, FHttpRequestCompleteDelegate::CreateRaw(this, &{{classname}}::On{{operationId}}));
+    
     return HttpRequest->ProcessRequest();
 }
 {{/operation}}

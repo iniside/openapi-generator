@@ -27,25 +27,21 @@ bool FStoreApi::DeleteOrder(
     bool bHasPathParams = true;
     
     FString BasePath = /store/order/{orderId};
-    
-    
-
 	TPair<FString, FString> AccetpType;
     //defaults
 	AccetpType.Key = "accept";
 	AccetpType.Value = "application/json";
 	TArray<TPair<FString, FString>> Headers;
 	Headers.Add(AccetpType);
-
-    
-    TPair<FString, FString> ContentType;
+    //if model params, assume it must be json in unreal.
     TPair<FString, FString> Param;
     Param.Key = FString("{" + "orderId" + "}");
     Param.Value = orderId
     ConstructPathParams(Param, BasePath);
 
-    CreateRequest(EVerbType::DELETE, BasePath, Headers, FHttpRequestCompleteDelegate());
-    HttpRequest->OnProcessRequestComplete().BindRaw(this, &FStoreApi::OnDeleteOrder, SuccessDelegate, ErrorDelegate);
+    
+    CreateRequest(EVerbType::DELETE, BasePath, Headers, FHttpRequestCompleteDelegate::CreateRaw(this, &FStoreApi::OnDeleteOrder));
+    
     return HttpRequest->ProcessRequest();
 }
 bool FStoreApi::GetInventory(        
@@ -58,21 +54,17 @@ bool FStoreApi::GetInventory(
     bool bHasPathParams = false;
     
     FString BasePath = /store/inventory;
-    
-    
-
 	TPair<FString, FString> AccetpType;
     //defaults
 	AccetpType.Key = "accept";
 	AccetpType.Value = "application/json";
 	TArray<TPair<FString, FString>> Headers;
 	Headers.Add(AccetpType);
+    //if model params, assume it must be json in unreal.
 
     
-    TPair<FString, FString> ContentType;
-
-    CreateRequest(EVerbType::GET, BasePath, Headers, FHttpRequestCompleteDelegate());
-    HttpRequest->OnProcessRequestComplete().BindRaw(this, &FStoreApi::OnGetInventory, SuccessDelegate, ErrorDelegate);
+    CreateRequest(EVerbType::GET, BasePath, Headers, FHttpRequestCompleteDelegate::CreateRaw(this, &FStoreApi::OnGetInventory));
+    
     return HttpRequest->ProcessRequest();
 }
 bool FStoreApi::GetOrderById(        
@@ -86,25 +78,21 @@ bool FStoreApi::GetOrderById(
     bool bHasPathParams = true;
     
     FString BasePath = /store/order/{orderId};
-    
-    
-
 	TPair<FString, FString> AccetpType;
     //defaults
 	AccetpType.Key = "accept";
 	AccetpType.Value = "application/json";
 	TArray<TPair<FString, FString>> Headers;
 	Headers.Add(AccetpType);
-
-    
-    TPair<FString, FString> ContentType;
+    //if model params, assume it must be json in unreal.
     TPair<FString, int64> Param;
     Param.Key = FString("{" + "orderId" + "}");
     Param.Value = orderId
     ConstructPathParams(Param, BasePath);
 
-    CreateRequest(EVerbType::GET, BasePath, Headers, FHttpRequestCompleteDelegate());
-    HttpRequest->OnProcessRequestComplete().BindRaw(this, &FStoreApi::OnGetOrderById, SuccessDelegate, ErrorDelegate);
+    
+    CreateRequest(EVerbType::GET, BasePath, Headers, FHttpRequestCompleteDelegate::CreateRaw(this, &FStoreApi::OnGetOrderById));
+    
     return HttpRequest->ProcessRequest();
 }
 bool FStoreApi::PlaceOrder(        
@@ -118,24 +106,21 @@ bool FStoreApi::PlaceOrder(
     bool bHasPathParams = false;
     
     FString BasePath = /store/order;
-    
-    
-
 	TPair<FString, FString> AccetpType;
     //defaults
 	AccetpType.Key = "accept";
 	AccetpType.Value = "application/json";
 	TArray<TPair<FString, FString>> Headers;
 	Headers.Add(AccetpType);
-
-    
+    //if model params, assume it must be json in unreal.
     TPair<FString, FString> ContentType;
-    
     ContentType.Key = "content-type";
     ContentType.Value = "application/json";
+    Headers.Add(ContentType);
 
-    CreateRequest(EVerbType::POST, BasePath, Headers, FHttpRequestCompleteDelegate());
-    HttpRequest->OnProcessRequestComplete().BindRaw(this, &FStoreApi::OnPlaceOrder, SuccessDelegate, ErrorDelegate);
+    
+    CreateRequest(EVerbType::POST, BasePath, Headers, FHttpRequestCompleteDelegate::CreateRaw(this, &FStoreApi::OnPlaceOrder));
+    
     return HttpRequest->ProcessRequest();
 }
 

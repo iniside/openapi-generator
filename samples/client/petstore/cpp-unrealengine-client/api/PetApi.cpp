@@ -27,32 +27,21 @@ bool FPetApi::AddPet(
     bool bHasPathParams = false;
     
     FString BasePath = /pet;
-    
-    
-
 	TPair<FString, FString> AccetpType;
     //defaults
 	AccetpType.Key = "accept";
 	AccetpType.Value = "application/json";
 	TArray<TPair<FString, FString>> Headers;
 	Headers.Add(AccetpType);
+    //if model params, assume it must be json in unreal.
     TPair<FString, FString> ContentType;
-	ContentType.Key = "ContentType";
-	ContentType.Value = "application/json";
-    Headers.Add(ContentType);
-    TPair<FString, FString> ContentType;
-	ContentType.Key = "ContentType";
-	ContentType.Value = "application/xml";
-    Headers.Add(ContentType);
-
-    
-    TPair<FString, FString> ContentType;
-    
     ContentType.Key = "content-type";
     ContentType.Value = "application/json";
+    Headers.Add(ContentType);
 
-    CreateRequest(EVerbType::POST, BasePath, Headers, FHttpRequestCompleteDelegate());
-    HttpRequest->OnProcessRequestComplete().BindRaw(this, &FPetApi::OnAddPet, SuccessDelegate, ErrorDelegate);
+    
+    CreateRequest(EVerbType::POST, BasePath, Headers, FHttpRequestCompleteDelegate::CreateRaw(this, &FPetApi::OnAddPet));
+    
     return HttpRequest->ProcessRequest();
 }
 bool FPetApi::DeletePet(        
@@ -67,25 +56,21 @@ bool FPetApi::DeletePet(
     bool bHasPathParams = true;
     
     FString BasePath = /pet/{petId};
-    
-    
-
 	TPair<FString, FString> AccetpType;
     //defaults
 	AccetpType.Key = "accept";
 	AccetpType.Value = "application/json";
 	TArray<TPair<FString, FString>> Headers;
 	Headers.Add(AccetpType);
-
-    
-    TPair<FString, FString> ContentType;
+    //if model params, assume it must be json in unreal.
     TPair<FString, int64> Param;
     Param.Key = FString("{" + "petId" + "}");
     Param.Value = petId
     ConstructPathParams(Param, BasePath);
 
-    CreateRequest(EVerbType::DELETE, BasePath, Headers, FHttpRequestCompleteDelegate());
-    HttpRequest->OnProcessRequestComplete().BindRaw(this, &FPetApi::OnDeletePet, SuccessDelegate, ErrorDelegate);
+    
+    CreateRequest(EVerbType::DELETE, BasePath, Headers, FHttpRequestCompleteDelegate::CreateRaw(this, &FPetApi::OnDeletePet));
+    
     return HttpRequest->ProcessRequest();
 }
 bool FPetApi::FindPetsByStatus(        
@@ -99,16 +84,13 @@ bool FPetApi::FindPetsByStatus(
     bool bHasPathParams = false;
     
     FString BasePath = /pet/findByStatus;
-    
-    
-
 	TPair<FString, FString> AccetpType;
     //defaults
 	AccetpType.Key = "accept";
 	AccetpType.Value = "application/json";
 	TArray<TPair<FString, FString>> Headers;
 	Headers.Add(AccetpType);
-
+    //if model params, assume it must be json in unreal.
      TArray<TPair<FString,TArray&lt;FString&gt;>> Params;
    
 	{
@@ -122,11 +104,10 @@ bool FPetApi::FindPetsByStatus(
     }
     FString QueryParams = ConstructQueryParams(Params);
     BasePath += QueryParams;
-    
-    TPair<FString, FString> ContentType;
 
-    CreateRequest(EVerbType::GET, BasePath, Headers, FHttpRequestCompleteDelegate());
-    HttpRequest->OnProcessRequestComplete().BindRaw(this, &FPetApi::OnFindPetsByStatus, SuccessDelegate, ErrorDelegate);
+    
+    CreateRequest(EVerbType::GET, BasePath, Headers, FHttpRequestCompleteDelegate::CreateRaw(this, &FPetApi::OnFindPetsByStatus));
+    
     return HttpRequest->ProcessRequest();
 }
 bool FPetApi::FindPetsByTags(        
@@ -140,16 +121,13 @@ bool FPetApi::FindPetsByTags(
     bool bHasPathParams = false;
     
     FString BasePath = /pet/findByTags;
-    
-    
-
 	TPair<FString, FString> AccetpType;
     //defaults
 	AccetpType.Key = "accept";
 	AccetpType.Value = "application/json";
 	TArray<TPair<FString, FString>> Headers;
 	Headers.Add(AccetpType);
-
+    //if model params, assume it must be json in unreal.
      TArray<TPair<FString,TArray&lt;FString&gt;>> Params;
    
 	{
@@ -163,11 +141,10 @@ bool FPetApi::FindPetsByTags(
     }
     FString QueryParams = ConstructQueryParams(Params);
     BasePath += QueryParams;
-    
-    TPair<FString, FString> ContentType;
 
-    CreateRequest(EVerbType::GET, BasePath, Headers, FHttpRequestCompleteDelegate());
-    HttpRequest->OnProcessRequestComplete().BindRaw(this, &FPetApi::OnFindPetsByTags, SuccessDelegate, ErrorDelegate);
+    
+    CreateRequest(EVerbType::GET, BasePath, Headers, FHttpRequestCompleteDelegate::CreateRaw(this, &FPetApi::OnFindPetsByTags));
+    
     return HttpRequest->ProcessRequest();
 }
 bool FPetApi::GetPetById(        
@@ -181,25 +158,21 @@ bool FPetApi::GetPetById(
     bool bHasPathParams = true;
     
     FString BasePath = /pet/{petId};
-    
-    
-
 	TPair<FString, FString> AccetpType;
     //defaults
 	AccetpType.Key = "accept";
 	AccetpType.Value = "application/json";
 	TArray<TPair<FString, FString>> Headers;
 	Headers.Add(AccetpType);
-
-    
-    TPair<FString, FString> ContentType;
+    //if model params, assume it must be json in unreal.
     TPair<FString, int64> Param;
     Param.Key = FString("{" + "petId" + "}");
     Param.Value = petId
     ConstructPathParams(Param, BasePath);
 
-    CreateRequest(EVerbType::GET, BasePath, Headers, FHttpRequestCompleteDelegate());
-    HttpRequest->OnProcessRequestComplete().BindRaw(this, &FPetApi::OnGetPetById, SuccessDelegate, ErrorDelegate);
+    
+    CreateRequest(EVerbType::GET, BasePath, Headers, FHttpRequestCompleteDelegate::CreateRaw(this, &FPetApi::OnGetPetById));
+    
     return HttpRequest->ProcessRequest();
 }
 bool FPetApi::UpdatePet(        
@@ -213,32 +186,21 @@ bool FPetApi::UpdatePet(
     bool bHasPathParams = false;
     
     FString BasePath = /pet;
-    
-    
-
 	TPair<FString, FString> AccetpType;
     //defaults
 	AccetpType.Key = "accept";
 	AccetpType.Value = "application/json";
 	TArray<TPair<FString, FString>> Headers;
 	Headers.Add(AccetpType);
+    //if model params, assume it must be json in unreal.
     TPair<FString, FString> ContentType;
-	ContentType.Key = "ContentType";
-	ContentType.Value = "application/json";
-    Headers.Add(ContentType);
-    TPair<FString, FString> ContentType;
-	ContentType.Key = "ContentType";
-	ContentType.Value = "application/xml";
-    Headers.Add(ContentType);
-
-    
-    TPair<FString, FString> ContentType;
-    
     ContentType.Key = "content-type";
     ContentType.Value = "application/json";
+    Headers.Add(ContentType);
 
-    CreateRequest(EVerbType::PUT, BasePath, Headers, FHttpRequestCompleteDelegate());
-    HttpRequest->OnProcessRequestComplete().BindRaw(this, &FPetApi::OnUpdatePet, SuccessDelegate, ErrorDelegate);
+    
+    CreateRequest(EVerbType::PUT, BasePath, Headers, FHttpRequestCompleteDelegate::CreateRaw(this, &FPetApi::OnUpdatePet));
+    
     return HttpRequest->ProcessRequest();
 }
 bool FPetApi::UpdatePetWithForm(        
@@ -254,29 +216,21 @@ bool FPetApi::UpdatePetWithForm(
     bool bHasPathParams = true;
     
     FString BasePath = /pet/{petId};
-    
-    
-
 	TPair<FString, FString> AccetpType;
     //defaults
 	AccetpType.Key = "accept";
 	AccetpType.Value = "application/json";
 	TArray<TPair<FString, FString>> Headers;
 	Headers.Add(AccetpType);
-    TPair<FString, FString> ContentType;
-	ContentType.Key = "ContentType";
-	ContentType.Value = "application/x-www-form-urlencoded";
-    Headers.Add(ContentType);
-
-    
-    TPair<FString, FString> ContentType;
+    //if model params, assume it must be json in unreal.
     TPair<FString, int64> Param;
     Param.Key = FString("{" + "petId" + "}");
     Param.Value = petId
     ConstructPathParams(Param, BasePath);
 
-    CreateRequest(EVerbType::POST, BasePath, Headers, FHttpRequestCompleteDelegate());
-    HttpRequest->OnProcessRequestComplete().BindRaw(this, &FPetApi::OnUpdatePetWithForm, SuccessDelegate, ErrorDelegate);
+    
+    CreateRequest(EVerbType::POST, BasePath, Headers, FHttpRequestCompleteDelegate::CreateRaw(this, &FPetApi::OnUpdatePetWithForm));
+    
     return HttpRequest->ProcessRequest();
 }
 bool FPetApi::UploadFile(        
@@ -292,29 +246,21 @@ bool FPetApi::UploadFile(
     bool bHasPathParams = true;
     
     FString BasePath = /pet/{petId}/uploadImage;
-    
-    
-
 	TPair<FString, FString> AccetpType;
     //defaults
 	AccetpType.Key = "accept";
 	AccetpType.Value = "application/json";
 	TArray<TPair<FString, FString>> Headers;
 	Headers.Add(AccetpType);
-    TPair<FString, FString> ContentType;
-	ContentType.Key = "ContentType";
-	ContentType.Value = "multipart/form-data";
-    Headers.Add(ContentType);
-
-    
-    TPair<FString, FString> ContentType;
+    //if model params, assume it must be json in unreal.
     TPair<FString, int64> Param;
     Param.Key = FString("{" + "petId" + "}");
     Param.Value = petId
     ConstructPathParams(Param, BasePath);
 
-    CreateRequest(EVerbType::POST, BasePath, Headers, FHttpRequestCompleteDelegate());
-    HttpRequest->OnProcessRequestComplete().BindRaw(this, &FPetApi::OnUploadFile, SuccessDelegate, ErrorDelegate);
+    
+    CreateRequest(EVerbType::POST, BasePath, Headers, FHttpRequestCompleteDelegate::CreateRaw(this, &FPetApi::OnUploadFile));
+    
     return HttpRequest->ProcessRequest();
 }
 
